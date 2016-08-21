@@ -1,0 +1,17 @@
+<div class="mdl-layout mdl-js-layout">
+  <header class="mdl-layout__header mdl-layout__header--transparent">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">Events ({{events.length}}) </span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation -->
+      <nav class="mdl-navigation">
+      	<i ng-click="clear()" class="material-icons">delete_forever</i>
+      </nav>
+    </div>
+  </header>
+  <main class="mdl-layout__content">
+   	<notification ng-repeat="event in events" event="event"></notification>
+  </main>
+</div>
