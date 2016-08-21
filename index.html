@@ -1,0 +1,124 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="MDCOnsole" content="A custom robot console developed by Team 4141">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>MDConsole Team4141</title>   
+    <script src="scripts/lib/jquery-2.2.2.min.js"></script>
+
+    <link rel="shortcut icon" href="images/materdei.jpg">
+
+    <link rel="stylesheet" href="css/mdicons.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/material.min.css">
+    <link rel="stylesheet" href="css/angular-material.min.css">
+    <link rel="stylesheet" href="css/MDConsole.css">
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    </style>
+
+  </head>
+  <body ng-app="MDConsole" ng-controller="MDConsoleController as mdc" ng-cloak >
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header mdl-layout__header--waterfall">
+    <div class="mdl-layout__header-row" layout="row" layout-align="space-between center">
+      <div class="mdl-layout-icon"><img src="images/materdei.jpg" width="40px" height="30px" /></div>
+      <!-- Title -->
+      <span class="mdl-layout-title">Team 4141</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-navigation mdl-layout--large-screen-only">
+        <ball-state></ball-state>
+        <connection-indicator></connection-indicator>
+        <!-- <div style="position: relative;"> -->
+    
+          
+          <md-switch ng-disabled="!(db.isConnected)" style="width:140px;padding-left:6px;" ng-model="db.isRecording" aria-label="Record Switch" ng-change="toggleRecording(db.isRecording)">
+            <span ng-class="{'disabled-text':!(db.isConnected)}">{{getRecordingLabel()}}</span>
+          </md-switch>
+          <!-- <span>db: {{db.isConnected}}</span> -->
+        <!-- </div> -->
+      </div>
+    </div>
+
+  </header>
+
+  
+  <main class="mdl-layout__content">
+    <div class="page-content">
+
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+  <div class="mdl-tabs__tab-bar">
+      <a href="#console-panel" class="mdl-tabs__tab  is-active">Console</a>
+      <a href="#eventlog-panel" class="mdl-tabs__tab">Event Log</a>
+      <a href="#database-panel" class="mdl-tabs__tab" ng-show="showAdmin">Database Admin</a>
+  </div>
+
+  <div class="mdl-tabs__panel  is-active" id="console-panel">
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--10-col">
+          <robot-config></robot-config>
+      </div>
+      <div id="sidebar" class="mdl-cell mdl-cell--2-col ">
+        <game-clock></game-clock>
+        <hr>
+      </div>
+    </div>
+  </div>
+  <div class="mdl-tabs__panel" id="eventlog-panel">
+    <event-log></event-log>
+  </div>
+  <div class="mdl-tabs__panel" id="database-panel">
+    <database-admin></database-admin>
+  </div>
+</div>
+
+
+
+
+
+
+
+    </div>
+  </main>
+</div>
+	  <script src="scripts/lib/material.min.js"></script>
+    <script src="scripts/lib/angular.min.js"></script>
+    <script src="scripts/lib/angular-animate.min.js"></script>
+    <script src="scripts/lib/angular-aria.min.js"></script>
+    <script src="scripts/lib/angular-messages.min.js"></script>
+    <script src="scripts/lib/angular-material.min.js"></script>
+
+    <script src="scripts/app/MDConsole.js"></script>
+    <script src="scripts/app/events/Events.js"></script>
+    <script src="scripts/app/events/EventService.js"></script>
+    <script src="scripts/app/events/EventLogDirective.js"></script>
+    <script src="scripts/app/events/NotificationDirective.js"></script>
+    
+    <script src="scripts/app/robot/Robot.js"></script>
+    <script src="scripts/app/robot/RobotService.js"></script>
+    <script src="scripts/app/robot/ConnectionIndicatorDirective.js"></script>
+    <script src="scripts/app/robot/BallStateDirective.js"></script>
+    <script src="scripts/app/GameClock/GameClockService.js"></script>
+    <script src="scripts/app/GameClock/GameClockDirective.js"></script>
+    <script src="scripts/app/robot/RobotConfigurationDirective.js"></script>
+    <script src="scripts/app/robot/ConfigurationItemDirective.js"></script>
+    <script src="scripts/app/database/DatabaseService.js"></script>
+    <script src="scripts/app/robot/CannonPositionDirective.js"></script>
+    <script src="scripts/app/robot/DistanceDirective.js"></script>
+    <script src="scripts/app/robot/HeadingDirective.js"></script>
+    <script src="scripts/app/database/DBViewsService.js"></script>
+    <script src="scripts/app/database/DatabaseAdminDirective.js"></script>
+
+ </body>
+</html>
