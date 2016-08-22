@@ -1,4 +1,29 @@
 (function(){
+
+    var sequence[];
+    // initialize();
+    function service($q,$log,$timeout, $interval){
+        $log.info("SimulationService");
+        var next = function(){
+            if(sequence.length>0){
+                // return sequence.shift();
+            }
+            return {};
+        };
+        return{
+            // next:next
+        }
+    }
+    angular.module('MDConsole')
+         .service('SimulationService', ['$q','$log', '$timeout', '$interval', service]);
+    function initialize(){
+        sequence.push('{"messageId": 51,"eventType": "RobotConfigurationNotification",'+
+            '"isDisplay": true,"isRecord": true,"fpgaTime": 7.453073,'+
+            '"commands": [{"command": "AutonomousCommand"}, {"command": "heartbeatCommand"}]}');
+    }
+})();
+
+/*
     'use strict';
     var script = [];
     var index = 0;

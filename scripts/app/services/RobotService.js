@@ -3,9 +3,15 @@
     // var robotAddress = "ws://172.22.11.2:5808";
     var robotAddress = 'ws://roboRIO-4141-FRC.local:5808';
 
-function service($q,$log,$timeout, $interval){
+    function service($q,$log,$timeout, $interval,SimulationService){
         $log.info("RobotService");
         var events = [];
+        var serviceObj = {
+                events: events,
+                clear: clear,
+                post: post,
+                simulation: true
+            };
         var process=function(event){
             $log.info('processing event:');
             $log.info(event);
@@ -13,6 +19,9 @@ function service($q,$log,$timeout, $interval){
 
             // if(eventObj.isDisplay) events.push(eventObj);
             // if(eventObj.isRecord) DatabaseService.record(eventObj);      
+            if (eventObj.eventType =="RobotConfigurationNotification"){
+                RobotService.updateConfiguration(eventObj);
+            }      
         };
     
         index = 0;
@@ -60,7 +69,13 @@ function service($q,$log,$timeout, $interval){
             },600);             
         };
 
-        connect();
+        if(serviceObj.simulation){
+            // process(SimulationService.next());
+        }
+        else{
+            connect();
+        }
+        
 
         var clear = function(){
             events.length=0;
@@ -70,12 +85,9 @@ function service($q,$log,$timeout, $interval){
             if(ws) ws.send(message);
             else $log.info('ws not valid');
         };
-        return {events: events,
-                clear: clear,
-                post: post
-            };  
+        return serviceObj;  
     }
     angular.module('MDConsole')
-         .service('RobotService', ['$q','$log', '$timeout', '$interval', service]);
+         .service('RobotService', ['$q','$log', '$timeout', '$interval', 'SimulationService', service]);
     
 })();
