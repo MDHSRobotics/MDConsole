@@ -9,6 +9,22 @@
 	}, {
 		"command": "heartbeatCommand"
 	}],
+	"console-oi":{
+		"name":"MDConsole",
+		"buttons":[
+			{"id":1,"name":"shoot","command":"shootCommand","action":"whenPressed"},
+			{"id":2,"name":"open","command":"openCommand","action":"whenReleased"},
+			{"id":3,"name":"blink","command":"blinkCommand","action":"toggleWhenPressed"},
+			{"id":4,"name":"horn","command":"hornCommand","action":"whilePressed"},
+			{"id":5,"name":"abort","command":"abortCommand","action":"cancelWhenPressed"},
+		],
+		"axis":[
+			{"id":1,"name":"x-axis"},
+			{"id":2,"name":"y-axis"},
+			{"id":3,"name":"z-axis"},
+			{"id":4,"name":"twist"}
+		]
+	},
 	"subsystems": [{
 		"subsystem": "core",
 		"settings": [{

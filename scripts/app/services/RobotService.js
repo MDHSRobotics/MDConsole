@@ -10,6 +10,7 @@
                 events: events,
                 clear: clear,
                 post: post,
+                robotConfig:{},
                 simulation: true
             };
         var process=function(event){
@@ -20,7 +21,7 @@
             // if(eventObj.isDisplay) events.push(eventObj);
             // if(eventObj.isRecord) DatabaseService.record(eventObj);      
             if (eventObj.eventType =="RobotConfigurationNotification"){
-                RobotService.updateConfiguration(eventObj);
+                updateConfiguration(eventObj);
             }      
         };
     
@@ -70,9 +71,11 @@
         };
 
         if(serviceObj.simulation){
-            // process(SimulationService.next());
+            $log.info('simulation on');
+            process(SimulationService.next());
         }
         else{
+            $log.info('simulation off');
             connect();
         }
         
@@ -86,6 +89,14 @@
             else $log.info('ws not valid');
         };
         return serviceObj;  
+
+
+        function updateConfiguration(robotConfig){
+            $log.info('robot config:');
+            $log.info(robotConfig);
+            serviceObj.robotConfig = robotConfig;
+        }
+
     }
     angular.module('MDConsole')
          .service('RobotService', ['$q','$log', '$timeout', '$interval', 'SimulationService', service]);

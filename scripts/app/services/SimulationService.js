@@ -1,17 +1,20 @@
 (function(){
 
-    var sequence[];
-    // initialize();
+    var sequence=[];
+    initialize();
     function service($q,$log,$timeout, $interval){
-        $log.info("SimulationService");
+        // $log.info("SimulationService");  
         var next = function(){
             if(sequence.length>0){
-                // return sequence.shift();
+                var item = sequence.shift();
+                $log.info('simulation item:');
+                $log.info(item);
+                return item;
             }
             return {};
         };
         return{
-            // next:next
+            next:next
         }
     }
     angular.module('MDConsole')
@@ -19,12 +22,96 @@
     function initialize(){
         sequence.push('{"messageId": 51,"eventType": "RobotConfigurationNotification",'+
             '"isDisplay": true,"isRecord": true,"fpgaTime": 7.453073,'+
-            '"commands": [{"command": "AutonomousCommand"}, {"command": "heartbeatCommand"}]}');
+            '"commands": [{"command": "AutonomousCommand"}, {"command": "heartbeatCommand"}],'+
+            '"consoleOI":{"name":"MDConsole","buttons":['+
+                '{"id":1,"name":"shoot","command":"shootCommand","action":"whenPressed"},'+
+                '{"id":2,"name":"open","command":"openCommand","action":"whenReleased"},'+
+                '{"id":3,"name":"blink","command":"blinkCommand","action":"toggleWhenPressed"},'+
+                '{"id":4,"name":"horn","command":"hornCommand","action":"whilePressed"},'+
+                '{"id":5,"name":"abort","command":"abortCommand","action":"cancelWhenPressed"}],'+
+                '"axis":['+
+                '{"id":1,"name":"x-axis"},'+
+                '{"id":2,"name":"y-axis"},'+
+                '{"id":3,"name":"z-axis"},'+
+                '{"id":4,"name":"twist"}]},'+
+    '"subsystems": ['+
+        '{"subsystem": "core", '+
+            '"settings": [{"path": "core.name","name": "name","valueType": "string","value": "Mr. Roboto"}]}, '+
+        '{"subsystem": "driveSystem", '+
+            '"sensors": ['+
+                '{"name": "distanceSensor", "readings": ['+
+                    '{"valueType": "analog","name": "distanceReading","value": 0.2575683295726776}'+
+                ']}, '+
+                '{"name": "accelerometer", "readings": ['+
+                    '{"valueType": "analog","name": "Rio_AccelX","value": 0.00390625}, '+
+                    '{"valueType": "analog","name": "Rio_AccelY","value": 0.0390625}, '+
+                    '{"valueType": "analog","name": "Rio_AccelZ","value": 0.984375}]'+
+                '}], '+
+            '"motors": ['+
+                '{"name": "right","channel": "1","isServo": false,"position": 0.0,"speed": -1.0,"class": "edu.wpi.first.wpilibj.Victor"}, '+
+                '{"name": "left","channel": "0","isServo": false,"position": 0.0,"speed": -1.0,"class": "edu.wpi.first.wpilibj.Victor"}]},'+
+        '{"subsystem": "diagnosticsSubsystem",'+
+            '"settings": [{"path": "diagnosticsSubsystem.diagnosticsScanPeriod","name": "diagnosticsScanPeriod","valueType": "doubleNumber","value": 0.1,"min": 0.02,"max": 20.0}], '+
+            '"sensors": [{"name": "diagnosticsSensor", "readings": ['+
+                    '{"valueType": "analog","name": "ControllerPower.Current3V3","value": 0.0018554683774709702}, '+
+                    '{"valueType": "analog","name": "ControllerPower.Current5V","value": 0.003360351314768195}, '+
+                    '{"valueType": "analog","name": "ControllerPower.Current6V","value": 0.03040771186351776}, '+
+                    '{"valueType": "analog","name": "ControllerPower.InputCurrent","value": 0.2743334472179413}, '+
+                    '{"valueType": "analog","name": "ControllerPower.InputVoltage","value": 13.069950103759766}, '+
+                    '{"valueType": "analog","name": "ControllerPower.Voltage3V3","value": 3.193772792816162}, '+
+                    '{"valueType": "analog","name": "ControllerPower.Voltage5V","value": 4.864603042602539}, '+
+                    '{"valueType": "analog","name": "ControllerPower.Voltage6V","value": 5.920276165008545}, '+
+                    '{"valueType": "analog","name": "ControllerPower.FaultCount3V3","value": 0.0}, '+
+                    '{"valueType": "analog","name": "ControllerPower.FaultCount5V","value": 0.0}, '+
+                    '{"valueType": "analog","name": "ControllerPower.FaultCount6V","value": 0.0}, '+
+                    '{"valueType": "digital","name": "ControllerPower.Enabled3V3","value": "true"}, '+
+                    '{"valueType": "digital","name": "xxxControllerPower.Enabled5V","value": "false"}, '+
+                    '{"valueType": "digital","name": "ControllerPower.Enabled6V","value": "true"}, '+
+                    '{"valueType": "analog","name": "DriverStation.BatteryVoltage","value": 13.069950103759766}, '+
+                    '{"valueType": "analog","name": "DriverStation.MatchTime","value": -1.0}, '+
+                    '{"valueType": "analog","name": "DriverStation.Location","value": 1.0}, '+
+                    '{"valueType": "analog","name": "DriverStation.Alliance","value": 1.0}, '+
+                    '{"valueType": "digital","name": "DriverStation.isBrownedOut","value": false}, '+
+                    '{"valueType": "digital","name": "DriverStation.isBrownedOut","value": true}, '+
+                    '{"valueType": "digital","name": "DriverStation.isBrownedOut","value": false}, '+
+                    '{"valueType": "digital","name": "DriverStation.isBrownedOut","value": false}, '+
+                    '{"valueType": "analog","name": "HALUtil.FPGARevision","value": 2.3072768E7}, '+
+                    '{"valueType": "analog","name": "HALUtil.FPGAButton","value": false}, '+
+                    '{"valueType": "analog","name": "HALUtil.FPGATime","value": 7409090.0}, '+
+                    '{"valueType": "analog","name": "HALUtil.FPGAVersion","value": 8214.0}, '+
+                    '{"valueType": "digital","name": "RobotState.isAutonomous","value": false}, '+
+                    '{"valueType": "digital","name": "RobotState.isDisabled","value": true}, '+
+                    '{"valueType": "digital","name": "RobotState.isEnabled","value": false}, '+
+                    '{"valueType": "digital","name": "RobotState.isOperatorControl","value": true}, '+
+                    '{"valueType": "digital","name": "RobotState.isTest","value": false}, '+
+                    '{"valueType": "digital","name": "RobotBase.isReal","value": true}, '+
+                    '{"valueType": "digital","name": "RobotBase.isSimulation","value": false}, '+
+                    '{"valueType": "analog","name": "Timer.FPGATimestamp","value": 7.410163}, '+
+                    '{"valueType": "analog","name": "Timer.MatchTime","value": -1.0}, '+
+                    '{"valueType": "analog","name": "Utility.FPGATime","value": 7410367.0}, '+
+                    '{"valueType": "digital","name": "Utility.userButton","value": false}, '+
+                    '{"valueType": "analog","name": "PowerDistributionPanel.kAnalogInputChannels","value": 8.0}, '+
+                    '{"valueType": "analog","name": "PowerDistributionPanel.kAnalogOutputChannels","value": 2.0}, '+
+                    '{"valueType": "analog","name": "PowerDistributionPanel.kDigitalChannels","value": 26.0}, '+
+                    '{"valueType": "analog","name": "PowerDistributionPanel.kPDPModules","value": 63.0}, '+
+                    '{"valueType": "analog","name": "PowerDistributionPanel.kPDPChannels","value": 16.0}, '+
+                    '{"valueType": "analog","name": "PowerDistributionPanel.kPwmChannels","value": 20.0}, '+
+                    '{"valueType": "analog","name": "PowerDistributionPanel.kRelayChannels","value": 4.0}, '+
+                    '{"valueType": "analog","name": "PowerDistributionPanel.kSolenoidModules","value": 2.0}, '+
+                    '{"valueType": "analog","name": "PowerDistributionPanel.kSolenoidChannels","value": 8.0}, '+
+                    '{"valueType": "analog","name": "PowerDistributionPanel.kSystemClockTicksPerMicrosecond","value": 40.0}, '+
+                    '{"valueType": "analog","name": "PowerDistributionPanel.DefaultSolenoidModule","value": 0.0}]}]}, '+
+        '{"subsystem": "WebSockets", '+
+            '"settings": [{"path": "WebSockets.enableWebSockets","name": "enableWebSockets","valueType": "binary","value": true}]}'+
+        ']}');
     }
 })();
 
 /*
-    'use strict';
+
+    THE COMMENTED CODE BELOW IS FROM LAST YEAR'S SIMULATION SCRIPT
+    HERE JUST AS REFERENCE FOR THIS YEAR
+
     var script = [];
     var index = 0;
     script.push(createLog(index++));
@@ -112,247 +199,6 @@
     script.push(createGameClockNotification(index++, 0.0, 120.0));
     script.push(createLog(index++));
 
-    angular.module('events')
-         .service('EventService', ['$q','$log', '$timeout', '$interval', 'RobotService', 'GameclockService', 'DatabaseService', EventService]);
-      function round(num){
-          return (Math.round(num * 100) / 100);
-      }
-    function createRobotState(index, state){
-        return '{'+
-            '"isDisplay": true, '+
-            '"isRecord": true, '+
-            '"eventType": "RobotStateNotification", '+
-            '"messageId":'+index+', '+
-            '"timestamp": '+Date.now()+', '+
-            '"state":"'+state+'"}';
-    }
-    function createLog(index){
-        return '{'+
-            '"isDisplay": true, '+
-            '"isRecord": true, '+
-            '"eventType": "LogNotification", '+
-            '"messageId":'+index+', '+
-            '"timestamp": '+Date.now()+', '+
-            '"level":"INFO",'+
-            '"source":"source"'+
-            ',"message":"message"}';
-    }
-    function createGameClockNotification(index, dsMatchTime, timerMatchTime){
-        return '{'+
-            '"isDisplay": true, '+
-            '"isRecord": true, '+
-            '"eventType": "GameClockNotification", '+
-            '"messageId":'+index+', '+
-            '"timestamp": '+Date.now()+', '+
-            '"dsMatchTime":'+dsMatchTime+','+
-            '"FMSAttached":true,'+
-            '"timerMatchTime":'+timerMatchTime+'}';
-    }
-    function createBallLoaded(index, ballStatus){
-        return '{'+
-            '"isDisplay": true, '+
-            '"isRecord": true, '+
-            '"eventType": "ballLoadedNotification", '+
-            '"messageId":'+index+', '+
-            '"timestamp": '+Date.now()+', '+
-            '"ballStatus":'+ballStatus+'}';
-    } 
-
-    function createRobotConfigurationNotification(index){
-        return '{"messageId":'+index+',"eventType":"RobotConfigurationNotification","isDisplay":true,"isRecord":true,"fpgaTime":605.30958,"commands":[{"command":"AutoFowardCommand","items":[{"name":"accelerationDuration","type":"doubleNumber","value":1.2,"min":0,"max":7.5,"commandName":"AutoFowardCommand","$$hashKey":"object:75"},{"name":"Kp","type":"doubleNumber","value":0.03,"min":0,"max":0.1,"commandName":"AutoFowardCommand","$$hashKey":"object:76"},{"name":"speed","type":"doubleNumber","value":0.5,"min":0,"max":1,"commandName":"AutoFowardCommand","$$hashKey":"object:77"},{"name":"duration","type":"doubleNumber","value":6,"min":0,"max":15,"commandName":"AutoFowardCommand","$$hashKey":"object:78"},{"name":"breakingDuration","type":"doubleNumber","value":1.2,"min":0,"max":7.5,"commandName":"AutoFowardCommand","$$hashKey":"object:79"}]},{"command":"UnfurlCommand","items":[{"name":"delay","type":"doubleNumber","value":0.5,"min":0,"max":3,"commandName":"UnfurlCommand","$$hashKey":"object:91"}]}],"subsystems":[{"subsystem":"ArmSystem","items":[{"name":"unfurlSpeed","type":"doubleNumber","value":0.2,"min":0,"max":1,"systemName":"ArmSystem","$$hashKey":"object:64"},{"name":"liftSpeed","type":"doubleNumber","value":0.33,"min":0,"max":1,"systemName":"ArmSystem","$$hashKey":"object:65"}]}],"$$hashKey":"object:95"}';
-    }
-
-    
-    function EventService($q,$log,$timeout, $interval, RobotService, GameclockService, DatabaseService){
-        // $log.info("EventService");
-        var events = [];
-        var process=function(event){
-            var eventObj=JSON.parse(event);
-            if(eventObj.isDisplay) events.push(eventObj);
-            if(eventObj.isRecord) DatabaseService.record(eventObj);
-            if (eventObj.eventType =="RobotConfigurationNotification"){
-                RobotService.updateConfiguration(eventObj);
-            }
-            if (eventObj.eventType =="GameClockNotification"){
-                // $log.info('db connected: '+DatabaseService.db.isConnected);
-                if(eventObj.FMSAttached && !DatabaseService.db.isRecording){
-                    // $log.info('FMS attached');
-                    if(DatabaseService.db.isConnected)DatabaseService.db.isRecording = true;
-                }
-                GameclockService.update(eventObj);
-            }
-            // if (eventObj.eventType =="PositionHeadingNotification"){
-
-            //    if( eventObj.hasOwnProperty('position') && eventObj.position){
-            //         // $log.info('detected a position update');
-            //         RobotService.setPosition(eventObj.position.x,eventObj.position.y);
-            //     }
-            //    if( eventObj.hasOwnProperty('heading')){
-            //         // $log.info('detected a heading update');
-            //         RobotService.setHeading(eventObj.heading);
-            //     }
-
-            // }
-            if (eventObj.eventType =="RobotStateNotification"){
-
-               if( eventObj.hasOwnProperty('state')){
-                    RobotService.setState(eventObj.state);
-                }
-            }
-
-
-            // if (eventObj.eventType =="targetAcquiredNotification"){
-            //     $log.info('detected a targetAcquiredNotification');
-            //     if( eventObj.hasOwnProperty('targetAcquired')){
-            //         $log.info('detected a target update');
-            //         RobotService.setTargetAcquired(eventObj.targetAcquired);
-            //     }
-               
-            // }
-
-            // if (eventObj.eventType =="goodShotNotification"){
-            //     $log.info('detected a goodShotNotification');
-            //     if( eventObj.hasOwnProperty('GoodShot')){
-            //         $log.info('detected a shot update');
-            //         RobotService.setGoodShot(eventObj.GoodShot);
-            //     }
-               
-            // }
-
-           if (eventObj.eventType =="ballLoadedNotification"){
-                if( eventObj.hasOwnProperty('ballStatus')){
-                    RobotService.setBallState(eventObj.ballStatus);
-                }
-            }
-
-            if (eventObj.eventType =="telemetryNotification"){
-                if(eventObj.sensors && Array.isArray(eventObj.sensors) && eventObj.sensors.length>0){
-                    var config = RobotService.robot.config;
-                    var sensors = eventObj.sensors;
-                    if(config.commands){
-                        
-                        var commandNames = Object.keys(config.commands);
-                        if(commandNames && commandNames.length>0){
-                            commandNames.forEach(function(commandName,index,array){
-                                sensors.forEach(function(sensor,index,array){
-                                    var elementNames = Object.keys(config.commands[commandName]);
-                                    elementNames.forEach(function(elementName,index,array){
-                                        if(elementName == sensor.name){
-                                            if(sensor.type == 'analog')
-                                                config.commands[commandName][elementName].value = round(sensor.value);
-                                            else
-                                                config.commands[commandName][elementName].value = sensor.value;
-                                        }
-                                    });
-                                });
-                            });
-                        }
-                        
-                    }
-
-
-                    if(config.subsystems){
-                        
-                        var systemsNames = Object.keys(config.subsystems);
-                        if(systemsNames && systemsNames.length>0){
-                            systemsNames.forEach(function(systemName,index,array){
-                                sensors.forEach(function(sensor,index,array){
-                                    var elementNames = Object.keys(config.subsystems[systemName]);
-                                    elementNames.forEach(function(elementName,index,array){
-                                        if(elementName == sensor.name){
-                                            if(sensor.type == 'analog')
-                                                config.subsystems[systemName][elementName].value = round(sensor.value);
-                                            else
-                                                config.subsystems[systemName][elementName].value = sensor.value;
-                                        }
-                                    });
-                                });
-
-                            });
-                        }
-                        
-                    }
-                }
-                
-            }
-        };
-    
-        index = 0;
-        var local = false ;
-        var ws;
-        var onopen = function(){
-            // $log.info('Opened!');
-            RobotService.setConnected(true);
-            this.send('{"command":"connect"}');
-        };
-        var onmessage = function(evt){
-            $timeout(function(){
-                // $log.info('processing '+evt.data);
-                process(evt.data);
-            });
-        };
-        var onclose = function(){
-            RobotService.setConnected(false);
-            $log.info('Connection closed.  Attempting to reconnect ...');
-            connect();
-        };
-        var onerror = function(err){
-            $log.info('ERROR: '+err)
-        };
-        var connect = function(){
-            var connector = $interval(function(){
-               // if(index >=  10 ){//script.length)
-                if(RobotService.robot.isConnected){
-                    $interval.cancel(connector);
-                    $log.info("stopped connector");
-                }
-                else{
-                    if (ws === undefined || ws.readyState === undefined || ws.readyState > 1) {
-                        $log.info('initializing web socket client...');
-                        // ws = new WebSocket('ws://127.0.0.1:5808');
-                        ws = new WebSocket('ws://roboRIO-4141-FRC.local:5808');
-                        ws.onopen = onopen;
-                        ws.onmessage = onmessage;
-                        ws.onclose = onclose;
-                        ws.onerror = onerror;
-                    }
-                }
-            },600);             
-        };
-        if(local){
-            //if true - use injector
-            $log.info("starting injector");
-            var injector = $interval(function(index){
-                // if(index >=  10 ){//script.length)
-                if(index >=  script.length){
-                    $interval.cancel(injector);
-                    $log.info("stopped injector");
-                }
-                else{
-                    process(script[index++]);
-                    index++;
-                }
-            },200);
-        }
-        else{
-            //if false = use websockets
-            //get events from RoboRIO
-            connect();
-        };
-        var clear = function(){
-            events.length=0;
-        };
-
-        var post = function(message){
-            if(ws) ws.send(message);
-            else $log.info('ws not valid');
-        };
-        return {events: events,
-                clear: clear,
-                post: post
-            };  
-    }
-})();
 /*
 
   

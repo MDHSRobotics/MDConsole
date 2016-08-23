@@ -8,10 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>MDConsole Team4141</title>   
     
-    <link rel="shortcut icon" href="images/materdei.jpg">
+    <link rel="shortcut icon" href="campsmith.png">
 
     <link rel="stylesheet" href="css/material-icons.css">
-    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/material.min.css">
     <link rel="stylesheet" href="css/angular-material.min.css">
     <link rel="stylesheet" href="css/MDConsole.css">
@@ -32,7 +32,7 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header mdl-layout__header--waterfall">
     <div class="mdl-layout__header-row" layout="row" layout-align="space-between center">
-      <div class="mdl-layout-icon"><img src="images/materdei.jpg" width="40px" height="30px" /></div>
+      <div class="mdl-layout-icon"><img src="campsmith.png" width="40px" height="30px" /></div>
       <!-- Title -->
       <span class="mdl-layout-title">Team 4141</span>
       <!-- Add spacer, to align navigation to the right -->
@@ -66,7 +66,9 @@
   <div class="mdl-tabs__panel  is-active" id="console-panel">
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--10-col">
-          <robot-config></robot-config>
+          <subsystems-list></subsystems-list>
+          <commands-list></commands-list>
+          <console-oi></console-oi>
       </div>
       <div id="sidebar" class="mdl-cell mdl-cell--2-col ">
         <game-clock></game-clock>
@@ -82,12 +84,6 @@
   </div>
 </div>
 
-
-
-
-
-
-
     </div>
   </main>
 </div>
@@ -101,7 +97,14 @@
     <script src="scripts/app/MDConsole.js"></script>
     <script src="scripts/app/services/SimulationService.js"></script>
     <script src="scripts/app/services/RobotService.js"></script>
+    <script src="scripts/app/directives/CommandsListDirective.js"></script>
+    <script src="scripts/app/directives/ConsoleOIDirective.js"></script>
+    <script src="scripts/app/directives/ConsoleButtonDirective.js"></script>
+    <script src="scripts/app/directives/ConsoleAxisDirective.js"></script>
+    <script src="scripts/app/directives/SubsystemsListDirective.js"></script>
     <script src="scripts/app/directives/SubsystemCardDirective.js"></script>
-    <script src="scripts/app/services/configurationService.js"></script>
+    <script src="scripts/app/directives/SettingDirective.js"></script>
+    <script src="scripts/app/directives/SensorDirective.js"></script>
+    <script src="scripts/app/directives/SensorReadingDirective.js"></script>
  </body>
 </html>
