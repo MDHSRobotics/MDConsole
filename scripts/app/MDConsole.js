@@ -8,8 +8,12 @@
 	};
 
 	angular.module('MDConsole',['ngMaterial'])
-	 //  	.config(function($mdThemingProvider) {
-	 //  		$mdThemingProvider.theme('default')
+	.config(['$httpProvider', function ($httpProvider) {
+	            // enable http caching
+	           $httpProvider.defaults.cache = false;
+	      }])
+      	//  	.config(function($mdThemingProvider) {
+	 	//  		$mdThemingProvider.theme('default')
 		// 	    .primaryPalette('grey')
 		// 	    .accentPalette('orange')
 		// 	    .warnPalette('red')

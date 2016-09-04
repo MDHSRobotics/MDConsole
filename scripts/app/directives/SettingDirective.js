@@ -9,17 +9,23 @@
   		replace: true,
       // templateUrl: 'scripts/app/views/SubsystemCard.html'
       template: '<div>'+
-                  '<div>setting: {{setting.name}}<div/><div>{{setting}}</div>'+
-                  '<div ng-if="setting.valueType==\'string\'" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">'+
+                  '<span>setting: {{setting.name}}<span/>'+
+                  '<span ng-if="setting.type==\'string\'" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">'+
                     '<input class="mdl-textfield__input" type="text" id="{{setting.path}}" ng-model="setting.value">'+
                     '<label class="mdl-textfield__label" for="{{setting.path}}">{{setting.name}}</label>'+
-                  '</div>'+
-                  '<div ng-if="setting.valueType==\'doubleNumber\'">'+
+                  '</span>'+
+                  '<span ng-if="setting.type==\'decimal\'">'+
+                    '<span>{{setting.name}}</span>'+
                     '<input class="mdl-slider mdl-js-slider" type="range" min="{{setting.min}}" max="{{setting.max}}" value="{{setting.value}}" ng-model="setting.value" step="{{setting.step}}"></input>'+
-                  '</div>'+
-                  '<div ng-if="setting.valueType==\'binary\'">'+
+                  '</span>'+
+                  '<span ng-if="setting.type==\'integer\'">'+
+                    '<span>{{setting.name}}</span>'+
+                    '<input class="mdl-slider mdl-js-slider" type="range" min="{{setting.min}}" max="{{setting.max}}" value="{{setting.value}}" ng-model="setting.value" step="{{setting.step}}"></input>'+
+                  '</span>'+
+                  '<span ng-if="setting.type==\'binary\'">'+
+                    '<span>{{setting.name}}</span>'+
                     '<md-switch class="md-primary" aria-label="{{setting.name}} setting" ng-model="setting.value">{{setting.name}}</md-switch>'+
-                  '</div>'+
+                  '</span>'+
                 '</div>'
   	}
   };
@@ -28,7 +34,8 @@
     $log.info('settingController');
     $log.info('setting:');
     $log.info($scope.setting);
-    if($scope.setting.valueType == 'doubleNumber' || $scope.setting.valueType == 'integer' )
+    if($scope.setting.type == 'decimal' || $scope.setting.type == 'integer' )
+      $log.info($scope.setting.name + ' is '+ $scope.setting.valueType);
       $scope.setting.step = ($scope.setting.max - $scope.setting.min)/100;
   };
 

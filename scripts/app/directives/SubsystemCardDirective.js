@@ -8,7 +8,9 @@
   		controller: 'subsystemCardController',
   		replace: true,
       // templateUrl: 'scripts/app/views/SubsystemCard.html'
-      template: '<div><div>subsystem: {{subsystem.subsystem}}</div><div>{{subsystem}}</div>'+
+      template: '<div>'+
+                    '<div>subsystem: {{subsystem.subsystem}}</div>'+
+                    // '<div>{{subsystem}}</div>'+
                     '<setting ng-repeat="setting in subsystem.settings" data-setting="setting"></setting>'+
                     '<sensor ng-repeat="sensor in subsystem.sensors" data-sensor="sensor"></sensor>'+
                 '</div>'

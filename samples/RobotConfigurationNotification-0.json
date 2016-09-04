@@ -1,63 +1,43 @@
 {
-	"messageId": 51,
+	"messageId": 0,
 	"eventType": "RobotConfigurationNotification",
 	"isDisplay": true,
 	"isRecord": true,
-	"fpgaTime": 7.453073,
+	"fpgaTime": 6215437,
 	"commands": [{
 		"command": "AutonomousCommand"
-	}, {
-		"command": "heartbeatCommand"
 	}],
-	"console-oi":{
-		"name":"MDConsole",
-		"buttons":[
-			{"id":1,"name":"shoot","command":"shootCommand","action":"whenPressed"},
-			{"id":2,"name":"open","command":"openCommand","action":"whenReleased"},
-			{"id":3,"name":"blink","command":"blinkCommand","action":"toggleWhenPressed"},
-			{"id":4,"name":"horn","command":"hornCommand","action":"whilePressed"},
-			{"id":5,"name":"abort","command":"abortCommand","action":"cancelWhenPressed"},
-		],
-		"axis":[
-			{"id":1,"name":"x-axis"},
-			{"id":2,"name":"y-axis"},
-			{"id":3,"name":"z-axis"},
-			{"id":4,"name":"twist"}
-		]
-	},
 	"subsystems": [{
 		"subsystem": "core",
 		"settings": [{
 			"path": "core.name",
 			"name": "name",
 			"type": "string",
-			"value": "Mr. Roboto",
-			"min": "Mr. Roboto",
-			"max": "Mr. Roboto"
+			"value": "Mr. Roboto"
 		}]
 	}, {
 		"subsystem": "driveSystem",
 		"sensors": [{
 			"name": "distanceSensor",
 			"readings": [{
-				"type": "analog",
 				"name": "distanceReading",
-				"value": 0.2575683295726776
+				"type": "analog",
+				"value": 0.2514648139476776
 			}]
 		}, {
 			"name": "accelerometer",
 			"readings": [{
-				"type": "analog",
 				"name": "Rio_AccelX",
-				"value": 0.00390625
-			}, {
 				"type": "analog",
+				"value": 0.01171875
+			}, {
 				"name": "Rio_AccelY",
+				"type": "analog",
 				"value": 0.0390625
 			}, {
-				"type": "analog",
 				"name": "Rio_AccelZ",
-				"value": 0.984375
+				"type": "analog",
+				"value": 1.0
 			}]
 		}],
 		"motors": [{
@@ -80,7 +60,7 @@
 		"settings": [{
 			"path": "diagnosticsSubsystem.diagnosticsScanPeriod",
 			"name": "diagnosticsScanPeriod",
-			"type": "doubleNumber",
+			"type": "decimal",
 			"value": 0.1,
 			"min": 0.02,
 			"max": 20.0
@@ -88,196 +68,172 @@
 		"sensors": [{
 			"name": "diagnosticsSensor",
 			"readings": [{
-				"type": "analog",
 				"name": "ControllerPower.Current3V3",
+				"type": "analog",
 				"value": 0.0018554683774709702
 			}, {
-				"type": "analog",
 				"name": "ControllerPower.Current5V",
-				"value": 0.003360351314768195
-			}, {
 				"type": "analog",
+				"value": 0.002873047022148967
+			}, {
 				"name": "ControllerPower.Current6V",
+				"type": "analog",
 				"value": 0.03040771186351776
 			}, {
-				"type": "analog",
 				"name": "ControllerPower.InputCurrent",
-				"value": 0.2743334472179413
-			}, {
 				"type": "analog",
+				"value": 0.23688769340515137
+			}, {
 				"name": "ControllerPower.InputVoltage",
-				"value": 13.069950103759766
-			}, {
 				"type": "analog",
+				"value": 13.798717498779297
+			}, {
 				"name": "ControllerPower.Voltage3V3",
-				"value": 3.193772792816162
-			}, {
 				"type": "analog",
+				"value": 3.188985586166382
+			}, {
 				"name": "ControllerPower.Voltage5V",
-				"value": 4.864603042602539
-			}, {
 				"type": "analog",
+				"value": 4.857325077056885
+			}, {
 				"name": "ControllerPower.Voltage6V",
-				"value": 5.920276165008545
-			}, {
 				"type": "analog",
+				"value": 5.921989917755127
+			}, {
 				"name": "ControllerPower.FaultCount3V3",
+				"type": "analog",
 				"value": 0.0
 			}, {
-				"type": "analog",
 				"name": "ControllerPower.FaultCount5V",
+				"type": "analog",
 				"value": 0.0
 			}, {
-				"type": "analog",
 				"name": "ControllerPower.FaultCount6V",
+				"type": "analog",
 				"value": 0.0
 			}, {
-				"type": "analog",
 				"name": "ControllerPower.Enabled3V3",
+				"type": "analog",
 				"value": true
 			}, {
-				"type": "analog",
 				"name": "ControllerPower.Enabled5V",
+				"type": "analog",
 				"value": true
 			}, {
-				"type": "analog",
 				"name": "ControllerPower.Enabled6V",
+				"type": "analog",
 				"value": true
 			}, {
-				"type": "analog",
 				"name": "DriverStation.BatteryVoltage",
-				"value": 13.069950103759766
-			}, {
 				"type": "analog",
+				"value": 13.848977088928223
+			}, {
 				"name": "DriverStation.MatchTime",
+				"type": "analog",
 				"value": -1.0
 			}, {
-				"type": "analog",
 				"name": "DriverStation.Location",
-				"value": 1.0
-			}, {
 				"type": "analog",
+				"value": 0.0
+			}, {
 				"name": "DriverStation.Alliance",
-				"value": 1.0
-			}, {
 				"type": "analog",
+				"value": 2.0
+			}, {
 				"name": "DriverStation.isBrownedOut",
+				"type": "analog",
 				"value": false
 			}, {
+				"name": "DriverStation.isDSAttached",
 				"type": "analog",
-				"name": "DriverStation.isBrownedOut",
-				"value": true
-			}, {
-				"type": "analog",
-				"name": "DriverStation.isBrownedOut",
 				"value": false
 			}, {
+				"name": "DriverStation.isFMSAttached",
 				"type": "analog",
-				"name": "DriverStation.isBrownedOut",
 				"value": false
 			}, {
+				"name": "DriverStation.isSysActive",
 				"type": "analog",
+				"value": false
+			}, {
 				"name": "HALUtil.FPGARevision",
+				"type": "analog",
 				"value": 2.3072768E7
 			}, {
-				"type": "analog",
 				"name": "HALUtil.FPGAButton",
+				"type": "analog",
 				"value": false
 			}, {
-				"type": "analog",
-				"name": "HALUtil.FPGATime",
-				"value": 7409090.0
-			}, {
-				"type": "analog",
 				"name": "HALUtil.FPGAVersion",
+				"type": "analog",
 				"value": 8214.0
 			}, {
-				"type": "analog",
-				"name": "RobotState.isAutonomous",
-				"value": false
-			}, {
-				"type": "analog",
-				"name": "RobotState.isDisabled",
-				"value": true
-			}, {
-				"type": "analog",
 				"name": "RobotState.isEnabled",
+				"type": "analog",
 				"value": false
 			}, {
+				"name": "RobotState.isAutonomous",
 				"type": "analog",
+				"value": false
+			}, {
+				"name": "RobotState.isDisabled",
+				"type": "analog",
+				"value": true
+			}, {
 				"name": "RobotState.isOperatorControl",
+				"type": "analog",
 				"value": true
 			}, {
-				"type": "analog",
 				"name": "RobotState.isTest",
+				"type": "analog",
 				"value": false
 			}, {
+				"name": "RobotState",
 				"type": "analog",
-				"name": "RobotBase.isReal",
-				"value": true
+				"value": "null"
 			}, {
-				"type": "analog",
-				"name": "RobotBase.isSimulation",
-				"value": false
-			}, {
-				"type": "analog",
-				"name": "Timer.FPGATimestamp",
-				"value": 7.410163
-			}, {
-				"type": "analog",
-				"name": "Timer.MatchTime",
-				"value": -1.0
-			}, {
-				"type": "analog",
-				"name": "Utility.FPGATime",
-				"value": 7410367.0
-			}, {
-				"type": "analog",
-				"name": "Utility.userButton",
-				"value": false
-			}, {
-				"type": "analog",
 				"name": "PowerDistributionPanel.kAnalogInputChannels",
+				"type": "analog",
 				"value": 8.0
 			}, {
-				"type": "analog",
 				"name": "PowerDistributionPanel.kAnalogOutputChannels",
+				"type": "analog",
 				"value": 2.0
 			}, {
-				"type": "analog",
 				"name": "PowerDistributionPanel.kDigitalChannels",
+				"type": "analog",
 				"value": 26.0
 			}, {
-				"type": "analog",
 				"name": "PowerDistributionPanel.kPDPModules",
+				"type": "analog",
 				"value": 63.0
 			}, {
-				"type": "analog",
 				"name": "PowerDistributionPanel.kPDPChannels",
+				"type": "analog",
 				"value": 16.0
 			}, {
-				"type": "analog",
 				"name": "PowerDistributionPanel.kPwmChannels",
+				"type": "analog",
 				"value": 20.0
 			}, {
-				"type": "analog",
 				"name": "PowerDistributionPanel.kRelayChannels",
+				"type": "analog",
 				"value": 4.0
 			}, {
-				"type": "analog",
 				"name": "PowerDistributionPanel.kSolenoidModules",
+				"type": "analog",
 				"value": 2.0
 			}, {
-				"type": "analog",
 				"name": "PowerDistributionPanel.kSolenoidChannels",
+				"type": "analog",
 				"value": 8.0
 			}, {
-				"type": "analog",
 				"name": "PowerDistributionPanel.kSystemClockTicksPerMicrosecond",
+				"type": "analog",
 				"value": 40.0
 			}, {
-				"type": "analog",
 				"name": "PowerDistributionPanel.DefaultSolenoidModule",
+				"type": "analog",
 				"value": 0.0
 			}]
 		}]

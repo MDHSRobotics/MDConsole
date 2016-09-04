@@ -9,17 +9,17 @@
   		replace: true,
       // templateUrl: 'scripts/app/views/Sensor.html'
       template: '<div>'+
-                  '<div>sensor: {{sensor.name}}</div>'+
-                  '<div>{{sensor}}</div>'+
-                  '<sensor-reading ng-repeat="reading in sensor.readings" data-reading="reading"></sensor-reading>'+
+                  // '<div>sensor: {{sensor.name}}</div>'+
+                  // '<div>{{sensor}}</div>'+
+                  '<sensor-reading ng-if="reading.show" ng-repeat="reading in sensor.readings" data-reading="reading"></sensor-reading>'+
                 '</div>'
   	}
   };
 
   var controller = function($scope, $log, RobotService){
-    $log.info('sensorController');
-    $log.info('sensor:');
-    $log.info($scope.sensor);
+    // $log.info('sensorController');
+    // $log.info('sensor:');
+    // $log.info($scope.sensor);
 
   };
 

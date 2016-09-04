@@ -1,124 +1,132 @@
 {
-	"messageId": 382,
+	"messageId": 940,
 	"eventType": "Heartbeat",
 	"isDisplay": true,
 	"isRecord": true,
-	"fpgaTime": 40.266988,
+	"fpgaTime": 130838327,
 	"sensors": [{
+		"name": "DriverStation.isFMSAttached",
 		"type": "analog",
+		"value": false
+	}, {
 		"name": "DriverStation.MatchTime",
+		"type": "analog",
 		"value": -1.0
 	}, {
-		"type": "analog",
 		"name": "ControllerPower.Voltage5V",
-		"value": 4.8485918045043945
-	}, {
 		"type": "analog",
+		"value": 4.860236167907715
+	}, {
 		"name": "Rio_AccelZ",
+		"type": "analog",
 		"value": 0.98828125
 	}, {
-		"type": "analog",
 		"name": "Rio_AccelY",
+		"type": "analog",
 		"value": 0.0390625
 	}, {
-		"type": "analog",
 		"name": "ControllerPower.Current5V",
+		"type": "analog",
 		"value": 0.002873047022148967
 	}, {
-		"type": "analog",
 		"name": "Rio_AccelX",
-		"value": 0.00390625
-	}, {
 		"type": "analog",
-		"name": "Timer.MatchTime",
-		"value": -1.0
+		"value": 0.01171875
 	}, {
+		"name": "RobotState.isTest",
 		"type": "analog",
+		"value": false
+	}, {
 		"name": "HALUtil.FPGAButton",
+		"type": "analog",
 		"value": false
 	}, {
-		"type": "analog",
 		"name": "DriverStation.isBrownedOut",
+		"type": "analog",
 		"value": false
 	}, {
+		"name": "RobotState.isAutonomous",
 		"type": "analog",
-		"name": "Utility.userButton",
 		"value": false
 	}, {
+		"name": "DriverStation.isDSAttached",
 		"type": "analog",
-		"name": "ControllerPower.Enabled5V",
 		"value": true
 	}, {
+		"name": "ControllerPower.Enabled5V",
 		"type": "analog",
+		"value": true
+	}, {
 		"name": "ControllerPower.FaultCount5V",
+		"type": "analog",
 		"value": 0.0
 	}, {
+		"name": "RobotState.isOperatorControl",
 		"type": "analog",
-		"name": "Timer.FPGATimestamp",
-		"value": 40.269501
+		"value": true
 	}, {
-		"type": "analog",
 		"name": "RobotState",
-		"value": "Teleop"
-	}, {
 		"type": "analog",
+		"value": "Disabled"
+	}, {
+		"name": "RobotState.isDisabled",
+		"type": "analog",
+		"value": true
+	}, {
 		"name": "ControllerPower.InputCurrent",
-		"value": 0.2202451080083847
-	}, {
 		"type": "analog",
+		"value": 0.23688769340515137
+	}, {
 		"name": "ControllerPower.Voltage3V3",
-		"value": 3.1841983795166016
-	}, {
 		"type": "analog",
+		"value": 3.187788724899292
+	}, {
 		"name": "ControllerPower.Voltage6V",
-		"value": 5.906567573547363
-	}, {
 		"type": "analog",
+		"value": 5.915135383605957
+	}, {
 		"name": "ControllerPower.Current6V",
+		"type": "analog",
 		"value": 0.027689937502145767
 	}, {
-		"type": "analog",
 		"name": "ControllerPower.FaultCount3V3",
+		"type": "analog",
 		"value": 0.0
 	}, {
+		"name": "DriverStation.isSysActive",
 		"type": "analog",
-		"name": "ControllerPower.Enabled6V",
-		"value": true
-	}, {
-		"type": "analog",
-		"name": "ControllerPower.FaultCount6V",
-		"value": 0.0
-	}, {
-		"type": "analog",
-		"name": "ControllerPower.Enabled3V3",
-		"value": true
-	}, {
-		"type": "analog",
-		"name": "HALUtil.FPGATime",
-		"value": 4.0268408E7
-	}, {
-		"type": "analog",
-		"name": "distanceReading",
-		"value": 0.2490234076976776
-	}, {
-		"type": "analog",
-		"name": "RobotState.isEnabled",
 		"value": false
 	}, {
+		"name": "ControllerPower.Enabled6V",
 		"type": "analog",
-		"name": "ControllerPower.InputVoltage",
-		"value": 13.402921676635742
+		"value": true
 	}, {
+		"name": "ControllerPower.FaultCount6V",
 		"type": "analog",
+		"value": 0.0
+	}, {
+		"name": "ControllerPower.Enabled3V3",
+		"type": "analog",
+		"value": true
+	}, {
+		"name": "distanceReading",
+		"type": "analog",
+		"value": 0.2539062201976776
+	}, {
+		"name": "RobotState.isEnabled",
+		"type": "analog",
+		"value": false
+	}, {
+		"name": "ControllerPower.InputVoltage",
+		"type": "analog",
+		"value": 13.86782455444336
+	}, {
 		"name": "ControllerPower.Current3V3",
+		"type": "analog",
 		"value": 0.0018554683774709702
 	}, {
-		"type": "analog",
-		"name": "Utility.FPGATime",
-		"value": 4.0269661E7
-	}, {
-		"type": "analog",
 		"name": "DriverStation.BatteryVoltage",
-		"value": 13.402921676635742
+		"type": "analog",
+		"value": 13.899236679077148
 	}]
 }
