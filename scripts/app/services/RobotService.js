@@ -6,24 +6,33 @@
     function service($q,$log,$timeout, $interval,$rootScope,SimulationService){
         $log.info("RobotService");
         var events = [];
+         var clockCorrectionDecrease=function(){
+            serviceObj.clock.correction -= 0.25; 
+        };
+
+        var clockCorrectionIncrease=function(){
+            serviceObj.clock.correction += 0.25;
+        };  
         var robotConfig = {
             subsystems:[],
             commands:[],
             consoleOI:{}
-            
         }
         var serviceObj = {
                 events: events,
                 clear: clear,
                 post: post,
+                isFMSAttached: false,
                 robotConfig: robotConfig,
-                clock:{},
-                simulation: false
+                clock:{matchTime:0, fpgaTime:0, correction:0},
+                simulation: false,
+                clockCorrectionIncrease:clockCorrectionIncrease,         
+                clockCorrectionDecrease:clockCorrectionDecrease
             };
         var process=function(event){
             // $log.info(event);
             var eventObj=JSON.parse(event);
-            // if(eventObj.isDisplay) events.push(eventObj);
+            if(eventObj.display) events.push(eventObj);
             // if(eventObj.isRecord) DatabaseService.record(eventObj);      
             if (eventObj.eventType =="RobotConfigurationNotification"){
                 // $log.info('processing RobotConfigurationNotification:');
@@ -41,7 +50,7 @@
         var ws;
         var connected = false;
         var onopen = function(){
-            $log.info('Opened!');
+            // $log.info('Opened!');
             connected=true;
             this.send('{"command":"connect"}');
         };
@@ -69,7 +78,7 @@
                 }
                 else{
                     if (ws === undefined || ws.readyState === undefined || ws.readyState > 1) {
-                        $log.info('initializing web socket client...');
+                        // $log.info('initializing web socket client...');
                         // ws = new WebSocket('ws://127.0.0.1:5808');
                         ws = new WebSocket(robotAddress);
                         ws.onopen = onopen;
@@ -99,32 +108,55 @@
             if(ws) ws.send(message);
             else $log.info('ws not valid');
         };
+       
         return serviceObj;  
 
 
         function updateConfiguration(robotConfig){
-            $log.info('robot config:');
+            // $log.info('robot config:');
             $log.info(robotConfig);
             if(robotConfig.hasOwnProperty('fpgaTime')){
-                $log.info('found fgpaTime');
+                $log.info('config fgpaTime');
                 serviceObj.clock.fpgaTime = robotConfig.fpgaTime;
             }
-            serviceObj.robotConfig.subsystems = robotConfig.subsystems;
-            serviceObj.robotConfig.commands = robotConfig.commands;
-            serviceObj.robotConfig.consoleOI = robotConfig.consoleOI;
+            if(robotConfig.hasOwnProperty('subsystems')){
+                $log.info('config subsystems');
+                serviceObj.robotConfig.subsystems = robotConfig.subsystems;
+            }
+            if(robotConfig.hasOwnProperty('commands')){
+                $log.info('config commands');
+                serviceObj.robotConfig.commands = robotConfig.commands;
+            }       
+            if(robotConfig.hasOwnProperty('consoleOI')){
+                $log.info('config consoleOI');
+                serviceObj.robotConfig.consoleOI = robotConfig.consoleOI;
+            }         
         }
         function update(heartbeat){
             // $log.info('heartbeat:');
             // $log.info(heartbeat);
             if(heartbeat.hasOwnProperty('fpgaTime')){
-                // $log.info('found fgpaTime');
                 $timeout(function(){
-                    serviceObj.clock.fpgaTime = heartbeat.fpgaTime;
+                    serviceObj.clock.fpgaTime = Math.round(heartbeat.fpgaTime * 100) / 100;
                 });
-            if(heartbeat.hasOwnProperty('sensors') && heartbeat.sensors && heartbeat.sensors.length && heartbeat.sensors.length>0){
+            }
+
+            if(heartbeat.hasOwnProperty('sensors')){
+                if(heartbeat.sensors.hasOwnProperty('Timer.MatchTime')){
+                    $timeout(function(){
+                        serviceObj.clock.matchTime = Math.round((heartbeat.sensors['Timer.MatchTime'].value + serviceObj.clock.correction)* 100) / 100;
+                    });
+                }
+                if(heartbeat.hasOwnProperty('sensors') && heartbeat.sensors.hasOwnProperty('DriverStation.isFMSAttached')){
+                    $timeout(function(){
+                        serviceObj.isFMSAttached = heartbeat.sensors['DriverStation.isFMSAttached'].value;
+                    });
+                }
+
                 // $log.info(heartbeat.sensors.length+' sensors data to update');
                 if(serviceObj.robotConfig && serviceObj.robotConfig.subsystems){
-                heartbeat.sensors.forEach(function(sensorReading){
+                    Object.getOwnPropertyNames(heartbeat.sensors).forEach(function(sensorReadingName){
+                    var sensorReading = heartbeat.sensors[sensorReadingName];
                     if(sensorReading.hasOwnProperty('subsystem') && serviceObj.robotConfig.subsystems.hasOwnProperty(sensorReading.subsystem)){
                       
                         var subsystem = serviceObj.robotConfig.subsystems[sensorReading.subsystem];
@@ -147,26 +179,11 @@
                 });
                 }
             }
-                /*
- { messageId: 1477, 
-   eventType: "Heartbeat", 
-   isDisplay: true, 
-   isRecord: true, 
-   fpgaTime: 199816343, 
-   sensors: [
-        name:'',
-        type:'',
-        value:''
-   ]
-11:32:59.771 sensor.subsystem =  diagnosticsSubsystem1angular.min.js:114:264
 
-}11:32:31.726 found fgpaTime1angular.min.js:114:264
-
-11:36:51.312 Object { subsystem: "diagnosticsSubsystem", settings: Array[1], sensors: Object }1angular.min.js:114:264
-
-                */
-            }
+            
         }
+
+  
 
     }
     angular.module('MDConsole')

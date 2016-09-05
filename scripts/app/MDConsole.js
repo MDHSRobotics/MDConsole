@@ -3,8 +3,8 @@
 	console.log('bootstrapping angular');
 	//defining the application controller
 	var appController = function($scope, $log, $attrs,RobotService){
-		$log.info('MDConsoleController');
-		$log.info($attrs);
+		// $log.info('MDConsoleController');
+		// $log.info($attrs);
 	};
 
 	angular.module('MDConsole',['ngMaterial'])

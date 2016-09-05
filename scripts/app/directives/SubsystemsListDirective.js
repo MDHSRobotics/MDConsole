@@ -15,7 +15,7 @@
   };
 
   var controller = function($scope, $log, RobotService){
-    $log.info('subsystemListController');
+    // $log.info('subsystemListController');
     $scope.robotConfig = RobotService.robotConfig;
   };
 

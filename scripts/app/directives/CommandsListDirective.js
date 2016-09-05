@@ -13,7 +13,7 @@
   };
 
   var controller = function($scope, $log, RobotService){
-    $log.info('commandsListController');
+    // $log.info('commandsListController');
     $scope.robotConfig =  RobotService.robotConfig;
     $scope.commandClick = function(command){
       $log.info('command clicked:');

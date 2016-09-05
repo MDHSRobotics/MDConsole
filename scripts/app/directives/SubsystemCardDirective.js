@@ -18,9 +18,9 @@
   };
 
   var controller = function($scope, $log, RobotService){
-    $log.info('subsystemCardController');
-    $log.info('subsystem:');
-    $log.info($scope.subsystem);
+    // $log.info('subsystemCardController');
+    // $log.info('subsystem:');
+    // $log.info($scope.subsystem);
   };
 
   angular.module('MDConsole')

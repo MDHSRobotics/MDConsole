@@ -31,12 +31,12 @@
   };
 
   var controller = function($scope, $log, RobotService){
-    $log.info('settingController');
-    $log.info('setting:');
-    $log.info($scope.setting);
-    if($scope.setting.type == 'decimal' || $scope.setting.type == 'integer' )
-      $log.info($scope.setting.name + ' is '+ $scope.setting.valueType);
+    // $log.info('settingController');
+    // $log.info('setting:');
+    // $log.info($scope.setting);
+    if($scope.setting.type == 'decimal' || $scope.setting.type == 'integer' ){
       $scope.setting.step = ($scope.setting.max - $scope.setting.min)/100;
+    }
   };
 
   angular.module('MDConsole')
