@@ -18,18 +18,34 @@
   };
 
   var controller = function($scope, $log, RobotService){
-    $log.info('consoleButtonController');
-    $log.info('button:');
-    $log.info($scope.button);
+    // $log.info('consoleButtonController');
+    // $log.info('button:');
+    // $log.info($scope.button);
     $scope.pressed = false;
     $scope.mousedown=function(button){
-      $log.info(button.name+' mousedown');
+      // $log.info(button.name+' mousedown');
       $scope.pressed = true;
+      var message='{"type":"consoleButtonUpdate", '+
+                       '"buttonName":"'+ button.name + 
+                       '", "buttonIndex":'+ button.index +
+                       ', "pressed":'+ true +
+                      '}';
+      // $log.info(button);
+      // $log.info(message);
+      RobotService.post(message);
     }
     $scope.mouseup=function(button){
-      $log.info(button.name+' mouseup');
+      // $log.info(button.name+' mouseup');
       $scope.pressed = false;
-    }
+      var message='{"type":"consoleButtonUpdate", '+
+                       '"buttonName":"'+ button.name + 
+                       '", "buttonIndex":'+ button.index +
+                       ', "pressed":'+ false +
+                      '}';
+      // $log.info(button);
+      // $log.info(message);
+      RobotService.post(message);
+      }
   };
 
   angular.module('MDConsole')

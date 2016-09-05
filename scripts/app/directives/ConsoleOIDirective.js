@@ -10,9 +10,11 @@
       // templateUrl: 'scripts/app/views/CommandsList.html'
       template: 
       '<div>'+
-        '<div>Console OI Configuration:</div><div>{{robotConfig.consoleOI}}</div>'+
+        // '<div>Console OI Configuration:</div><div>{{robotConfig.consoleOI}}</div>'+
+        '<console-rumble ng-repeat="rumble in robotConfig.consoleOI.rumbles" data-rumble="rumble">{{rumble}}</console-rumble>'+
+        
         '<console-button ng-repeat="button in robotConfig.consoleOI.buttons" data-button="button"></console-button>'+
-        '<console-axis ng-repeat="axis in robotConfig.consoleOI.axis" data-axis="axis"></console-axis>'+
+        // '<console-axis ng-repeat="axis in robotConfig.consoleOI.axis" data-axis="axis"></console-axis>'+
       '</div>'
   	}
   };

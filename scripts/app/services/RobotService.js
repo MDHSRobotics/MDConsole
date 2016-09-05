@@ -13,6 +13,16 @@
         var clockCorrectionIncrease=function(){
             serviceObj.clock.correction += 0.25;
         };  
+        var post = function(message){
+            // $log.info('sending message to RoboRio');
+            // $log.info(message);
+            if(ws) ws.send(message);
+            else $log.info('ws not valid');
+        };
+        var clear = function(){
+            events.length=0;
+        };
+        
         var robotConfig = {
             subsystems:[],
             commands:[],
@@ -100,14 +110,7 @@
         }
         
 
-        var clear = function(){
-            events.length=0;
-        };
 
-        var post = function(message){
-            if(ws) ws.send(message);
-            else $log.info('ws not valid');
-        };
        
         return serviceObj;  
 
