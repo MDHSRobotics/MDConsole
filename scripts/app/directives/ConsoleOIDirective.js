@@ -13,19 +13,18 @@
         // '<div>Console OI Configuration:</div><div>{{robotConfig.consoleOI}}</div>'+
         '<console-rumble ng-repeat="rumble in robotConfig.consoleOI.rumbles" data-rumble="rumble">{{rumble}}</console-rumble>'+
         
-        '<console-button ng-repeat="button in robotConfig.consoleOI.buttons" data-button="button"></console-button>'+
+          '<console-button ng-repeat="button in robotConfig.consoleOI.buttons" data-button="button"></console-button>'+
+       
         // '<console-axis ng-repeat="axis in robotConfig.consoleOI.axis" data-axis="axis"></console-axis>'+
+        
       '</div>'
   	}
   };
 
   var controller = function($scope, $log, RobotService){
-    $log.info('consoleOIController');
+    // $log.info('consoleOIController');
     $scope.robotConfig =  RobotService.robotConfig;
-    $scope.commandClick = function(command){
-      $log.info('command clicked:');
-      $log.info(command);
-    }
+
   };
 
   angular.module('MDConsole')

@@ -1,0 +1,20 @@
+.title-bar{
+	min-height: 20px;
+	height:36px;
+}
+
+.title-label{
+	padding-left: 10px;
+}
+.clock-label{
+	text-align: center;
+	font-size: 15px;
+}
+.clock-time-dispay{
+	text-align: center;
+	font-size: 38px;
+}
+
+.gameclock{
+	border: solid 1px red;
+}

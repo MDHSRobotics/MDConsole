@@ -9,11 +9,13 @@
   		replace: true,
       // templateUrl: 'scripts/app/views/CommandsList.html'
       template: 
-      '<div>'+
-        '<button class="mdl-button mdl-js-button mdl-js-ripple-effect"'+
-        'ng-mousedown="mousedown(button)" ng-mouseup="mouseup(button)" ng-model="value"'
-        +'>{{button.name}}</button><span>{{pressed}}</span>'+
-      '</div>'
+      // '<div>'+
+      //   '<button class="mdl-button mdl-js-button mdl-js-ripple-effect"'+
+      //   'ng-mousedown="mousedown(button)" ng-mouseup="mouseup(button)" ng-model="value"'
+      //   +'>{{button.name}}</button><span>{{pressed}}</span>'+
+      // '</div>'
+      '<div><md-button ng-mousedown="mousedown(button)" ng-mouseup="mouseup(button)" ng-model="value"><md-icon>playlist_play</md-icon>{{button.name}}</md-button></div>'
+
   	}
   };
 

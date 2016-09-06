@@ -5,6 +5,9 @@
 	var appController = function($scope, $log, $attrs,RobotService){
 		// $log.info('MDConsoleController');
 		// $log.info($attrs);
+		$scope.getEventsCount = function(){
+			return RobotService.getEventsCount();
+		}
 	};
 
 	angular.module('MDConsole',['ngMaterial'])
@@ -12,13 +15,11 @@
 	            // enable http caching
 	           $httpProvider.defaults.cache = false;
 	      }])
-      	//  	.config(function($mdThemingProvider) {
-	 	//  		$mdThemingProvider.theme('default')
-		// 	    .primaryPalette('grey')
-		// 	    .accentPalette('orange')
-		// 	    .warnPalette('red')
-		// 	    .backgroundPalette('white')
-		// 	    ;
-		// })
+  	 	.config(function($mdThemingProvider) {
+ 	 		$mdThemingProvider.theme('default')
+		    .primaryPalette('grey')
+		    .accentPalette('orange')
+		    .warnPalette('red');
+		})
 		.controller('MDConsoleController',['$scope','$log', '$attrs', 'RobotService', appController])
 }());

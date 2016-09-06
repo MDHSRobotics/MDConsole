@@ -8,11 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>MDConsole Team4141</title>   
     
-    <link rel="shortcut icon" href="campsmith.png">
+    <link rel="shortcut icon" href="mdlogo.jpg">
 
     <link rel="stylesheet" href="css/material-icons.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/material.min.css">
+    <!-- <link rel="stylesheet" href="css/font-awesome.min.css"> -->
+    <!-- <link rel="stylesheet" href="css/material.min.css"> -->
     <link rel="stylesheet" href="css/angular-material.min.css">
     <link rel="stylesheet" href="css/MDConsole.css">
     <style>
@@ -29,65 +29,38 @@
 
   </head>
   <body ng-app="MDConsole" ng-controller="MDConsoleController as mdc" ng-cloak >
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header mdl-layout__header--waterfall">
-    <div class="mdl-layout__header-row" layout="row" layout-align="space-between center">
-      <div class="mdl-layout-icon"><img src="campsmith.png" width="40px" height="30px" /></div>
-      <!-- Title -->
-      <span class="mdl-layout-title">Team 4141</span>
-      <!-- Add spacer, to align navigation to the right -->
-      <div class="mdl-navigation mdl-layout--large-screen-only">
-        <ball-state></ball-state>
-        <connection-indicator></connection-indicator>
-        <!-- <div style="position: relative;"> -->
-    
-          
-          <md-switch ng-disabled="!(db.isConnected)" style="width:140px;padding-left:6px;" ng-model="db.isRecording" aria-label="Record Switch" ng-change="toggleRecording(db.isRecording)">
+
+<div layout="column">
+  <md-toolbar class="title-bar">
+    <div class="md-toolbar-tools">
+      <img src="mdlogo.jpg" width="40px" height="30px" />
+      <span class="title-label">Monarchs - Team 4141</span>
+      <!-- fill up the space between left and right area -->
+      <span flex></span>
+      <i class="material-icons">android</i>
+    </div>
+  </md-toolbar>
+  <div layout="row" layout-wrap>
+    <div flex="15" style="background-color:rgba(255,255,255,1)" layout="column"       layout-align="space-around stretch">
+      <game-clock></game-clock>
+      <console-oi></console-oi>
+    </div>
+    <div flex="80"><subsystems-list></subsystems-list></div>
+    <div flex="5" layout="column" layout-align="space-around center">
+       <md-icon>settings</md-icon>
+       <md-icon>storage</md-icon>
+       <md-icon>healing</md-icon>
+       <md-icon class="mdl-badge mdl-badge--overlap" data-badge="{{getEventsCount()}}">message</md-icon>
+    </div>
+    <div flex="100"><event-log></event-log></div>
+  </div>
+</div>
+
+ <!--         <md-switch ng-disabled="!(db.isConnected)" style="width:140px;padding-left:6px;" ng-model="db.isRecording" aria-label="Record Switch" ng-change="toggleRecording(db.isRecording)">
             <span ng-class="{'disabled-text':!(db.isConnected)}">{{getRecordingLabel()}}</span>
-          </md-switch>
-          <!-- <span>db: {{db.isConnected}}</span> -->
-        <!-- </div> -->
-      </div>
-    </div>
+          </md-switch> -->
 
-  </header>
-
-  
-  <main class="mdl-layout__content">
-    <div class="page-content">
-
-<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-  <div class="mdl-tabs__tab-bar">
-      <a href="#console-panel" class="mdl-tabs__tab  is-active">Console</a>
-      <a href="#eventlog-panel" class="mdl-tabs__tab">Event Log</a>
-      <a href="#database-panel" class="mdl-tabs__tab" ng-show="showAdmin">Database Admin</a>
-  </div>
-
-  <div class="mdl-tabs__panel  is-active" id="console-panel">
-    <div class="mdl-grid">
-      <div class="mdl-cell mdl-cell--10-col">
-          <subsystems-list></subsystems-list>
-          <commands-list></commands-list>
-          <console-oi></console-oi>
-      </div>
-      <div id="sidebar" class="mdl-cell mdl-cell--2-col ">
-        <game-clock></game-clock>
-        <hr>
-      </div>
-    </div>
-  </div>
-  <div class="mdl-tabs__panel" id="eventlog-panel">
-    <event-log></event-log>
-  </div>
-  <div class="mdl-tabs__panel" id="database-panel">
-    <database-admin></database-admin>
-  </div>
-</div>
-
-    </div>
-  </main>
-</div>
-	  <script src="scripts/lib/material.min.js"></script>
+	  <!-- <script src="scripts/lib/material.min.js"></script> -->
     <script src="scripts/lib/angular.min.js"></script>
     <script src="scripts/lib/angular-animate.min.js"></script>
     <script src="scripts/lib/angular-aria.min.js"></script>

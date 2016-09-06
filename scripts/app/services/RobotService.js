@@ -19,10 +19,12 @@
             if(ws) ws.send(message);
             else $log.info('ws not valid');
         };
-        var clear = function(){
+        var clearEvents = function(){
             events.length=0;
         };
-        
+        var getEventsCount = function(){
+            return events.length;
+        };
         var robotConfig = {
             subsystems:[],
             commands:[],
@@ -30,7 +32,8 @@
         }
         var serviceObj = {
                 events: events,
-                clear: clear,
+                clearEvents: clearEvents,
+                getEventsCount: getEventsCount,
                 post: post,
                 isFMSAttached: false,
                 robotConfig: robotConfig,
