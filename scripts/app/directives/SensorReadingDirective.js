@@ -4,14 +4,16 @@
   var directive = function(){
   	return{
   		restrict:'E',
-  		scope:{reading:"="},
+  		scope:{reading:"=",index:"="},
   		controller: 'sensorReadingController',
   		replace: true,
       // templateUrl: 'scripts/app/views/Sensor.html'
       template: '<div>'+
-                  '<div ng-if="reading.type==\'analog\'"><span>reading: {{reading.name}}</span><span>analog</span><span class="analogReading">{{reading.value}}</span></div>'+
-                  '<div ng-if="reading.type==\'digital\'"><span>reading: {{reading.name}}</span><span>digital</span><span class="ditialReading">{{reading.value}}</span></div>'+
-                  '<div ng-if="reading.type==\'string\'"><span>reading: {{reading.name}}</span><span>string</span><span class="stringReading">{{reading.value}}</span></div>'+
+                  '<md-divider ng-show="index>0"></md-divider>'+
+                  '<div layout="row">'+
+                     '<div flex="65">{{reading.name}}</div>'+
+                     '<div flex="35">{{reading.value}}</div>'+
+                  '</div>'+
                 '</div>'
   	}
   };

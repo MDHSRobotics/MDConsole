@@ -8,35 +8,77 @@
   		controller: 'settingController',
   		replace: true,
       // templateUrl: 'scripts/app/views/SubsystemCard.html'
-      template: '<div>'+
-                  '<span>setting: {{setting.name}}<span/>'+
-                  '<span ng-if="setting.type==\'string\'" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">'+
-                    '<input class="mdl-textfield__input" type="text" id="{{setting.path}}" ng-model="setting.value" ng-model-options="{ updateOn: \'blur\' }" ng-change="change()">'+
-                    '<label class="mdl-textfield__label" for="{{setting.path}}">{{setting.name}}</label>'+
-                  '</span>'+
-                  '<span ng-if="setting.type==\'decimal\'">'+
-                    '<span>{{setting.name}}</span>'+
-                    '<input class="mdl-slider mdl-js-slider" type="range" min="{{setting.min}}" max="{{setting.max}}" value="{{setting.value}}" ng-model="setting.value"  ng-model-options="{ updateOn: \'default blur\', debounce: { \'default\': 200, \'blur\': 0 } }"   ng-change="change()" step="{{setting.step}}"></input>'+
-                  '</span>'+
-                  '<span ng-if="setting.type==\'integer\'">'+
-                    '<span>{{setting.name}}</span>'+
-                    '<input class="mdl-slider mdl-js-slider" type="range" min="{{setting.min}}" max="{{setting.max}}" value="{{setting.value}}" ng-model="setting.value"  ng-model-options="{ updateOn: \'default blur\', debounce: { \'default\': 200, \'blur\': 0 } }"  ng-change="change()" step="{{setting.step}}"></input>'+
-                  '</span>'+
-                  '<span ng-if="setting.type==\'binary\'">'+
-                    '<span>{{setting.name}}</span>'+
+      /*
+        <md-content ng-controller="RightCtrl" layout-padding>
+          <form>
+            <md-input-container>
+              <label for="testInput">Test input</label>
+              <input type="text" id="testInput"
+                     ng-model="data" md-autofocus>
+            </md-input-container>
+          </form>
+          <md-button ng-click="close()" class="md-primary">
+            Close Sidenav Right
+          </md-button>
+        </md-content>
+      */
+      template: '<div class="setting">'+
+                // '<form>'+
+                  '<md-content ><md-input-container ng-if="setting.type==\'string\'">'+
+                    '<label for="{{setting.name}}Input">{{setting.name}}</label>'+
+                    '<input type="text" id="{{setting.name}}Input"  ng-model="setting.value" md-autofocus>'+
+                  '</md-input-container></md-content>'+
+                  '<div ng-if="setting.type==\'decimal\' || setting.type==\'integer\'" layout="row" layout-wrap>'+
+                      '<div flex="70">'+
+                        '<div><span class="title">{{setting.name}}</span>'+
+                        '<span class="title-control" ng-hide="configure" ng-click="openConfigure()"><md-icon>build</md-icon></span></div>'+
+                        '<div ng-hide="configure">'+
+                           '<md-slider style="padding-left:6px" ng-change="change()" min="{{setting.min}}" max="{{setting.max}}" ng-model="setting.value" step="{{setting.step}}"></md-slider>'+
+                        '</div>'+
+                      '</div>'+
+                      '<span class="value" ng-hide="configure" flex="30">{{setting.value}}</span>'+
+                      '<div class="setting-configuration-panel" ng-show="configure" flex="100">'+
+                          '<md-content>'+
+                          '<span>range:</span>'+
+                          '<div class="inline-numeric"><md-input-container md-no-float>'+
+                              '<input placeholder="min" type="text" id="{{setting.name}}min" ng-change="calcStep()" ng-model="setting.min" numeric>'+
+                          '</md-input-container></div>'+
+                          '<span> - </span>'+
+                          '<div class="inline-numeric"><md-input-container md-no-float>'+
+                              '<input placeholder="max" type="text" id="{{setting.name}}max" ng-change="calcStep()" ng-model="setting.max" numeric>'+
+                          '</md-input-container></div>'+
+                          '<md-icon class="md-primary config-control" ng-click="closeConfigure()">close</md-icon>'+
+                          '</md-content>'+
+                    '</div>'+  
+                  '</div>'+
+
+                  '<div ng-if="setting.type==\'binary\'">'+
                     '<md-switch class="md-primary" aria-label="{{setting.name}} setting" ng-model="setting.value"  ng-change="change()">{{setting.name}}</md-switch>'+
-                  '</span>'+
+                  '</div>'+
+                // '</form>'+
                 '</div>'
   	}
   };
 
-  var controller = function($scope, $log, RobotService){
+  var controller = function($scope, $log, $mdSidenav, RobotService){
     // $log.info('settingController');
     // $log.info('setting:');
     // $log.info($scope.setting);
-    if($scope.setting.type == 'decimal' || $scope.setting.type == 'integer' ){
-      $scope.setting.step = ($scope.setting.max - $scope.setting.min)/100;
+    $scope.step = 1;
+    function calcStep(){
+      $log.info('calcStep');
+      if($scope.setting.type == 'integer' ){
+        $scope.setting.step = 1;
+      }
+      if($scope.min > $scope.value) $scope.min = $scope.value+"";
+      if($scope.max < $scope.value) $scope.max = $scope.value+"";
+      if($scope.setting.type == 'decimal'){
+        $scope.setting.step = (($scope.setting.max - $scope.setting.min)/100).toFixed(2);
+        $log.info('step = '+$scope.setting.step);
+      }
     }
+    calcStep();
+    $scope.calcStep = calcStep;
     $scope.change = function(){
             var message='{"type":"settingUpdate", '+
                        '"subsystem":"'+ $scope.setting.subsystem + 
@@ -56,10 +98,18 @@
       $log.info($scope.setting);
       $log.info(message);
       RobotService.post(message);
-    }
+    };
+    $scope.configure=false;
+    $scope.openConfigure = function(){
+      $scope.configure=true;
+    };
+    $scope.closeConfigure = function(){
+      $scope.configure=false;
+    };
+    
   };
 
   angular.module('MDConsole')
   .directive('setting',[directive])
-  .controller('settingController',['$scope', '$log', 'RobotService', controller]);
+  .controller('settingController',['$scope', '$log', '$mdSidenav','RobotService', controller]);
 }());

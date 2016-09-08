@@ -10,7 +10,11 @@
       // templateUrl: 'scripts/app/views/SubsystemsList.html'
       // template: '<div><div>{{robotConfig.subsystems}}</div><subsystem-card ng-repeat="subsystem in robotConfig.subsystems" data-subsystem="subsystem"></subsystem-card></div>'
       // template: '<div><div>{{robotConfig.subsystems}}</div><div ng-repeat="subsystem in robotConfig.subsystems">{{subsystem.subsystem}}</div></div>'
-      template: '<div><subsystem-card ng-if="!subsystem.isCore" ng-repeat="subsystem in robotConfig.subsystems" data-subsystem="subsystem"></subsystem-card></div>'
+      // template: '<div><subsystem-card ng-if="!subsystem.isCore" ng-repeat="subsystem in robotConfig.subsystems" data-subsystem="subsystem"></subsystem-card></div>'
+      template: 
+         '<div layout="row" layout-wrap>'+
+            '<subsystem-card ng-repeat="subsystem in robotConfig.subsystems" data-subsystem="subsystem"></subsystem-card>'+
+         '</div>'
   	}
   };
 

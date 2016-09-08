@@ -11,7 +11,7 @@
       template: '<div>'+
                   // '<div>sensor: {{sensor.name}}</div>'+
                   // '<div>{{sensor}}</div>'+
-                  '<sensor-reading ng-if="reading.show" ng-repeat="reading in sensor.readings" data-reading="reading"></sensor-reading>'+
+                  '<sensor-reading ng-if="reading.show" ng-repeat="reading in sensor.readings" data-reading="reading" data-index="$index"></sensor-reading>'+
                 '</div>'
   	}
   };

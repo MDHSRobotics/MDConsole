@@ -6,15 +6,168 @@
 .title-label{
 	padding-left: 10px;
 }
-.clock-label{
-	text-align: center;
-	font-size: 15px;
-}
+
+
 .clock-time-dispay{
 	text-align: center;
 	font-size: 38px;
 }
 
-.gameclock{
-	border: solid 1px red;
+.clock{
+	/*border: solid 1px rgba(123,112,0,0.1);*/
+	height:87px;
+	width:200px;
+}
+
+.clock md-tabs{
+	padding-bottom: 26px;
+}
+
+.clock md-tabs[md-align-tabs=bottom] md-tabs-wrapper, .clock md-tabs-canvas{
+	height: 26px;
+}
+
+.clock md-tab-item{
+	font-size:12px;
+	line-height:16px;
+	padding: 4px 6px 2px 6px;
+}
+
+.clock .material-icons{
+    font-size: 16px;
+}
+
+.clock .label{
+	text-align: center;
+	font-size: 13px;
+}
+
+.clock .display{
+    font-size: 40px;
+    padding: 0px 0px;
+	text-align: center;
+}
+
+.clock-control .material-icons{
+ 	font-size: 26px;
+}
+
+.clock-control.md-button{
+ 	min-width:0px;
+ 	padding: 0px;
+ 	margin: 0px;
+}
+
+.indicators-container{
+	width:50px;
+	text-align: left;
+}
+
+.indicator{
+	width:50px;
+	height:30px;
+	padding: 10px 0px 0px 0px;
+	position: relative;
+}
+
+.indicator .badge{
+	font-size: 11px;
+	font-weight:600;
+    color: white;
+    background-color: red;
+    padding: 4px 3px;
+    margin: 0px;
+    text-align: center;
+    border-radius: 10px;
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    display:inline-block;    
+    min-width: 12px;
+}
+
+.indicators-container .md-button{
+	line-height: 12px;
+    padding: 0px;
+    margin: 0px;
+}
+
+
+.subsystem-card{
+	border: 1px solid red;
+	margin: 10px;
+}
+
+.subsystem-card md-toolbar{
+	min-height: 0px;
+}
+.subsystem-card .md-toolbar-tools{
+	height: 32px;
+}
+.subsystem-card .title{
+	font-size: 26px;
+}
+
+.subsystem-card .avatar{
+	font-size: 32px;
+	vertical-align: bottom;
+	padding-right: 10px;
+}
+
+.subsystem-card .card-body{
+	margin: 5px 8px 0px 6px;
+}
+
+.setting{
+	height: 58px;
+	overflow: hidden;
+	position: relative;
+}
+.setting .title{
+	font-size:18px; 
+}
+.setting .value{
+	font-size:40px; 
+}
+
+.setting .title-control {
+	padding-left:14px; 
+}
+
+.setting .title-control .material-icons{
+	font-size:14px; 
+	vertical-align: baseline;
+}
+
+.setting-configuration-panel{
+	position:relative;
+	top:-20px;
+	background-color: rgba(255,255,255,0.65);
+	padding-left: 10px;
+}
+
+.setting .config-control.material-icons{
+	position: absolute;
+	left: 324px;
+	top: 0px;
+}
+
+.setting .inline-numeric{
+	padding:0px 3px;
+	width:60px;
+	display: inline-block;
+	position:relative;
+	top:5px;
+}
+
+.setting md-content{
+	overflow-y:hidden;
+}
+
+.setting .inline-numeric md-input-container{
+	margin: 10px 0px 0px 0px;
+}
+
+.setting md-input-container{
+	width:100%;
 }
