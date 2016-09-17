@@ -3,10 +3,15 @@
     // var robotAddress = "ws://172.22.11.2:5808";
     var robotAddress = 'ws://roboRIO-4141-FRC.local:5808';
 
-    function service($q,$log,$timeout, $interval,$rootScope,SimulationService){
+    function service($q,$log,$timeout, $interval,$rootScope,SimulationService,DatabaseService){
         $log.info("RobotService");
+        var connector;  //variable managing periodic attempt to connect to roborio
+        var hearbeatInjector;  //variable managing periodic attempt to inject heatbeat messages for the simulation
+        var logEventInjector;  //variable managing periodic attempt to inject event log messages for the simulation
         var events = [];
-         var clockCorrectionDecrease=function(){
+        var eventcapacity = 999;
+
+        var clockCorrectionDecrease=function(){
             serviceObj.clock.correction -= 0.25; 
         };
 
@@ -25,28 +30,72 @@
         var getEventsCount = function(){
             return events.length;
         };
+        var toggleFMS = function(){
+            serviceObj.isFMSAttached = !serviceObj.isFMSAttached;
+        };
+        var toggleConnected = function(){
+            serviceObj.isConnected = !serviceObj.isConnected;
+        }
+
+        var toggleSimulation = function(){
+            SimulationService.toggleSimulation();
+             if(serviceObj.isSimulation()){
+                $log.info('simulation is on');
+                if(connector){
+                    //periodic interval object to automatically connect to roborio is in progress
+                    //diasble it
+                    // $log.info('connector defined');
+                    $interval.cancel(connector);
+                    $log.info("Robot connector terminated");
+                }
+                logEventInjector = $interval(function(){
+                    process(SimulationService.nextLogEvent()); 
+                    process(SimulationService.next());  
+                },600);                   
+
+            }
+            else{
+                $log.info('simulation is off');
+                if(logEventInjector){
+                    // $log.info('logEventInjector interval being canceled');
+                    $interval.cancel(logEventInjector);
+                    connect();
+                }
+
+            }           
+        };
+        var isSimulation = function(){
+            return SimulationService.isSimulation;
+        };
+        var states = ['disabled','autonomous','teleop','disabled', 'test', 'disabled'];
+
         var robotConfig = {
             subsystems:[],
-            commands:[],
             consoleOI:{}
-        }
+        };
         var serviceObj = {
                 events: events,
                 clearEvents: clearEvents,
                 getEventsCount: getEventsCount,
                 post: post,
                 isFMSAttached: false,
+                isConnected:false,
+                isSimulation:isSimulation,
+                toggleFMS:toggleFMS,
+                toggleConnected:toggleConnected,
+                toggleSimulation:toggleSimulation,
+                state: states[0],
                 robotConfig: robotConfig,
                 clock:{matchTime:0, fpgaTime:0, correction:0},
-                simulation: false,
                 clockCorrectionIncrease:clockCorrectionIncrease,         
                 clockCorrectionDecrease:clockCorrectionDecrease
             };
         var process=function(event){
             // $log.info(event);
             var eventObj=JSON.parse(event);
+            // $log.info(eventObj);
             if(eventObj.display) events.push(eventObj);
-            // if(eventObj.isRecord) DatabaseService.record(eventObj);      
+            if(eventObj.isRecord) DatabaseService.record(eventObj);      
             if (eventObj.eventType =="RobotConfigurationNotification"){
                 // $log.info('processing RobotConfigurationNotification:');
                 // $log.info(eventObj);
@@ -56,16 +105,21 @@
                 // $log.info('processing Heartbeat:');
                 // $log.info(eventObj);
                 update(eventObj);
-            }      
+            }     
+            if(eventObj.eventType =="RobotLogNotification"){
+                events.push(eventObj);
+                // $log.info("RobotLogNotification found");
+                if(events.length>eventcapacity) events.shift();
+            }
         };
     
         index = 0;
         var ws;
-        var connected = false;
         var onopen = function(){
-            // $log.info('Opened!');
-            connected=true;
+            $log.info('WS CONNECTED!');
+            $interval.cancel(connector);            
             this.send('{"command":"connect"}');
+            serviceObj.isConnected = true;
         };
         var onmessage = function(evt){
             // $timeout(function(){
@@ -74,67 +128,55 @@
             // });
         };
         var onclose = function(){
-            connected=false;
-            $log.info('Connection closed.  Attempting to reconnect ...');
+            ws = undefined;
+            serviceObj.isConnected = false;
+            $log.info('Robot connection closed.  Attempting to reconnect ...');
             connect();
         };
         var onerror = function(err){
-            $log.info('ERROR: ')
-            $log.info(err);
+            // $log.info('WS CONNECTION ERROR: ')
+            // $log.info(err);
+            // ws = undefined;
+            // connect();
         };
         var connect = function(){
-            var connector = $interval(function(){
-               // if(index >=  10 ){//script.length)
-                if(connected){
-                    $interval.cancel(connector);
-                    // $log.info("stopped connector");
+            connector = $timeout(function(){
+                if (!serviceObj.isSimulation() && ws === undefined){
+                    $log.info('simulation off');
+                    $log.info('initializing web socket client...');
+                    // ws = new WebSocket('ws://127.0.0.1:5808');
+                    ws = new WebSocket(robotAddress);
+                    ws.onopen = onopen;
+                    ws.onmessage = onmessage;
+                    ws.onclose = onclose;
+                    ws.onerror = onerror;
                 }
                 else{
-                    if (ws === undefined || ws.readyState === undefined || ws.readyState > 1) {
-                        // $log.info('initializing web socket client...');
-                        // ws = new WebSocket('ws://127.0.0.1:5808');
-                        ws = new WebSocket(robotAddress);
-                        ws.onopen = onopen;
-                        ws.onmessage = onmessage;
-                        ws.onclose = onclose;
-                        ws.onerror = onerror;
-                    }
+                    $log.info('aborting connection due to simulation');
                 }
-            },600);             
+            },10);             
         };
 
-        if(serviceObj.simulation){
-            $log.info('simulation on');
-            process(SimulationService.next());
-        }
-        else{
-            $log.info('simulation off');
-            connect();
-        }
-        
-
-
-       
+        connect();
         return serviceObj;  
-
 
         function updateConfiguration(robotConfig){
             // $log.info('robot config:');
-            $log.info(robotConfig);
+            // $log.info(robotConfig);
+            serviceObj.clock.fpgaTime=0.0;
             if(robotConfig.hasOwnProperty('fpgaTime')){
-                $log.info('config fgpaTime');
+                // $log.info('config fgpaTime');
                 serviceObj.clock.fpgaTime = robotConfig.fpgaTime;
             }
+            serviceObj.robotConfig.subsystems={};
             if(robotConfig.hasOwnProperty('subsystems')){
-                $log.info('config subsystems');
+                // $log.info('config subsystems');
                 serviceObj.robotConfig.subsystems = robotConfig.subsystems;
             }
-            if(robotConfig.hasOwnProperty('commands')){
-                $log.info('config commands');
-                serviceObj.robotConfig.commands = robotConfig.commands;
-            }       
+   
+            serviceObj.robotConfig.consoleOI={};
             if(robotConfig.hasOwnProperty('consoleOI')){
-                $log.info('config consoleOI');
+                // $log.info('config consoleOI');
                 serviceObj.robotConfig.consoleOI = robotConfig.consoleOI;
             }         
         }
@@ -193,6 +235,6 @@
 
     }
     angular.module('MDConsole')
-         .service('RobotService', ['$q','$log', '$timeout', '$interval', '$rootScope','SimulationService', service]);
+         .service('RobotService', ['$q','$log', '$timeout', '$interval', '$rootScope','SimulationService','DatabaseService', service]);
     
 })();

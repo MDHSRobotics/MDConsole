@@ -16,53 +16,47 @@
 
   </head>
   <body ng-app="MDConsole" ng-controller="MDConsoleController as mdc" ng-cloak >
- <md-toolbar class="title-bar">
-    <div class="md-toolbar-tools">
-      <img src="mdlogo.jpg" width="40px" height="30px" />
-      <span class="title-label">Monarchs - Team 4141</span>
-      <!-- fill up the space between left and right area -->
-      <span flex></span>
-      <i class="material-icons">android</i>
-    </div>
-  </md-toolbar>
-     <div>
-    <div layout="row" layout-wrap>
-      <div flex="none" layout="column">
-        <game-clock></game-clock>
-        <console-oi></console-oi>
-      </div>
-      <div class="other" flex>
-      	<subsystems-list></subsystems-list>
-      </div>
-      <div flex="none"  class="indicators-container" layout="column">
-        <md-button ng-click="toggleRight('settings')"><div class="indicator"><md-icon>settings</md-icon></div></md-button>
-        <md-button ng-click="toggleRight('diagnostics')"><div class="indicator"><md-icon>assessment</md-icon></div></md-button>
-        <md-button ng-click="toggleRight('messages')"><div class="indicator"><md-icon>message</md-icon><badge data-count="messageCount"></badge></div></md-button>
-        <md-button ng-click="addMessage()">add message</md-button>
-      </div>
-    </div>
-    <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+      <div layout="row" class="viewport">
+        <div style="width:220px" flex="none">
+            <div layout="row">
+             <div flex="none"><img class="team-logo" src="mdlogo.jpg" width="80px" height="60px" /></div>
+            <div flex layout="column">
+               <span class="team-name">Team</span><span  class="team-name">4141</span>
+            </div>
+            </div>
+            <md-divider></md-divider>
+            <game-clock></game-clock>
+            <robot-state data-state="state"></robot-state>
+            <div layout="column">
+                <div>Commands:</div>
+                <console-oi></console-oi>
+                <md-divider></md-divider>
+                <div>Simulation:</div>
+                <md-button class="md-raised md-primary" ng-click="toggleFMS()">Toggle FMS</md-button>
+                <md-button class="md-raised md-primary" ng-click="toggleConnected()">Toggle Connected</md-button>
+                <md-button class="md-raised md-primary" ng-click="toggleDBConnected()">Toggle DB Connected</md-button>
 
-      <md-toolbar class="md-theme-light">
-        <h1 class="md-toolbar-tools">Sidenav Right</h1>
-      </md-toolbar>
-      <md-content ng-controller="RightCtrl" layout-padding>
-        <form>
-          <md-input-container>
-            <label for="testInput">Test input</label>
-            <input type="text" id="testInput"
-                   ng-model="data" md-autofocus>
-          </md-input-container>
-        </form>
-        <md-button ng-click="close()" class="md-primary">
-          Close Sidenav Right
-        </md-button>
-      </md-content>
-
+            </div>
+        </div>
+        <div  flex layout="column" style="height:450px;">
+            <!-- <div style="width:300px;height:300px;background-color:rgb(255,255,255)"><H1>BODY</H1></div> -->
+            <subsystems-list></subsystems-list>
+        </div>
+        <div flex="none" class="indicators-container" layout="column">
+          <div class="indicator" ng-class="{'connected':isConnected}"><md-icon>android</md-icon></div>
+          <div class="indicator" ng-class="{'connected':isDBConnected}" ng-click="toggleRecording()"><md-icon>storage</md-icon><md-icon class="annotation" ng-show="isRecording">fiber_manual_record</md-icon></div>
+          <md-divider></md-divider>
+          <md-button ng-click="toggleRight('settings')"><div class="indicator"><md-icon>settings</md-icon></div></md-button>
+          <md-button ng-click="toggleRight('diagnostics')"><div class="indicator"><md-icon>assessment</md-icon></div></md-button>
+          <md-button ng-click="toggleRight('event-log')"><div class="indicator"><md-icon>message</md-icon><badge data-count="getEventsCount()"></badge></div></md-button>
+          <div class="indicator simulation-switch" ng-class="{'connected':isSimulation()}" ng-click="toggleSimulation()">SIM</div>
+        </div>
+    </div>
+    <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" ng-class="{'sidenav-log':mode=='event-log'}">
+      <core-settings  ng-show="mode=='settings'"></core-settings>  
+      <diagnostics  ng-show="mode=='diagnostics'"></diagnostics>  
+      <event-log  ng-show="mode=='event-log'"></event-log>  
     </md-sidenav>    
-    </div>
-    <div flex="100"><event-log></event-log></div>
-
 
  <!--         <md-switch ng-disabled="!(db.isConnected)" style="width:140px;padding-left:6px;" ng-model="db.isRecording" aria-label="Record Switch" ng-change="toggleRecording(db.isRecording)">
             <span ng-class="{'disabled-text':!(db.isConnected)}">{{getRecordingLabel()}}</span>
@@ -77,6 +71,7 @@
     <script src="scripts/app/MDConsole.js"></script>
     <script src="scripts/app/services/SimulationService.js"></script>
     <script src="scripts/app/services/RobotService.js"></script>
+    <script src="scripts/app/services/DatabaseService.js"></script>
     <script src="scripts/app/directives/ConsoleOIDirective.js"></script>
     <script src="scripts/app/directives/ConsoleButtonDirective.js"></script>
     <script src="scripts/app/directives/SubsystemsListDirective.js"></script>
@@ -85,9 +80,14 @@
     <script src="scripts/app/directives/SensorDirective.js"></script>
     <script src="scripts/app/directives/SensorReadingDirective.js"></script>
     <script src="scripts/app/directives/GameClockDirective.js"></script>
+    <script src="scripts/app/directives/CoreSettingsDirective.js"></script>
+    <script src="scripts/app/directives/DiagnosticsDirective.js"></script>
     <script src="scripts/app/directives/EventLogDirective.js"></script>
     <script src="scripts/app/directives/NotificationDirective.js"></script>
     <script src="scripts/app/directives/BadgeDirective.js"></script>
     <script src="scripts/app/directives/NumericDirective.js"></script>
+    <script src="scripts/app/directives/ScrollBottomDirective.js"></script>
+    <script src="scripts/app/directives/LogMessageDirective.js"></script>
+    <script src="scripts/app/directives/RobotStateDirective.js"></script>
  </body>
 </html>

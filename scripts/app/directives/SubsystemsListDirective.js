@@ -12,20 +12,16 @@
       // template: '<div><div>{{robotConfig.subsystems}}</div><div ng-repeat="subsystem in robotConfig.subsystems">{{subsystem.subsystem}}</div></div>'
       // template: '<div><subsystem-card ng-if="!subsystem.isCore" ng-repeat="subsystem in robotConfig.subsystems" data-subsystem="subsystem"></subsystem-card></div>'
       template: 
-         '<div layout="row" layout-wrap>'+
-            '<subsystem-card ng-repeat="subsystem in robotConfig.subsystems" data-subsystem="subsystem"></subsystem-card>'+
-         '</div>'
+         '<md-content><div layout="row" layout-wrap>'+
+            '<subsystem-card ng-if="!subsystem.isCore" ng-repeat="subsystem in robotConfig.subsystems" data-subsystem="subsystem"></subsystem-card>'+
+         '</div></md-content>'
   	}
   };
 
   var controller = function($scope, $log, RobotService){
     // $log.info('subsystemListController');
     $scope.robotConfig = RobotService.robotConfig;
-    $scope.userSubsystemFilter = function (item) { 
-      $log.info('filtering item:');
-      $log.info(item);
-      return true; 
-    };
+
   };
 
   angular.module('MDConsole')

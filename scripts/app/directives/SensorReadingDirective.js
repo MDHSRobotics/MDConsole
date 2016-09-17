@@ -11,8 +11,8 @@
       template: '<div>'+
                   '<md-divider ng-show="index>0"></md-divider>'+
                   '<div layout="row">'+
-                     '<div flex="65">{{reading.name}}</div>'+
-                     '<div flex="35">{{reading.value}}</div>'+
+                     '<div flex="65" class="truncate">{{reading.name}}</div>'+
+                     '<div flex="35" class="truncate">{{reading.value}}</div>'+
                   '</div>'+
                 '</div>'
   	}

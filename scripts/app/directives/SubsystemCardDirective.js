@@ -8,7 +8,7 @@
   		controller: 'subsystemCardController',
   		replace: true,
       // templateUrl: 'scripts/app/views/SubsystemCard.html'
-      template: '<div class="subsystem-card" flex="30">'+
+      template: '<div class="subsystem-card" flex="30" md-whiteframe="5">'+
                     '<md-toolbar class="md-theme-light">'+
                       '<div class="md-toolbar-tools">'+
                          '<md-icon class="avatar">memory</md-icon>'+
@@ -27,8 +27,8 @@
 
   var controller = function($scope, $log, RobotService){
     // $log.info('subsystemCardController');
-    $log.info('subsystem:');
-    $log.info($scope.subsystem);
+    // $log.info('subsystem:');
+    // $log.info($scope.subsystem);
     $scope.showDivider = function(){
       if(!$scope.subsystem.hasOwnProperty('sensors')) return false;
       if(!$scope.subsystem.hasOwnProperty('settings')) return false;
@@ -39,7 +39,7 @@
         keys.forEach(function(key){
           // $log.info($scope.subsystem.sensors[key]);
           if($scope.subsystem.sensors[key].hasOwnProperty('readings') && Object.getOwnPropertyNames($scope.subsystem.sensors[key].readings).length>0 ){
-            $log.info($scope.subsystem.subsystem+' has both settings('+hasSettings+') and readings');
+            // $log.info($scope.subsystem.subsystem+' has both settings('+hasSettings+') and readings');
             result = hasSettings;
           }
         });

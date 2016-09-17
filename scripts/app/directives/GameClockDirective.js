@@ -38,7 +38,7 @@
   };
 
   var controller = function($scope, $log, RobotService){
-    $log.info('gameClockController');
+    // $log.info('gameClockController');
     $scope.selectedIndex = 1;  //default to FPGA tab
     $scope.clock = RobotService.clock;
     $scope.isDefault = true;

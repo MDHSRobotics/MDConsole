@@ -24,21 +24,21 @@
       */
       template: '<div class="setting">'+
                 // '<form>'+
-                  '<md-content ><md-input-container ng-if="setting.type==\'string\'">'+
+                  '<div><md-input-container ng-if="setting.type==\'string\'">'+
                     '<label for="{{setting.name}}Input">{{setting.name}}</label>'+
                     '<input type="text" id="{{setting.name}}Input"  ng-model="setting.value" md-autofocus>'+
-                  '</md-input-container></md-content>'+
+                  '</md-input-container></div>'+
                   '<div ng-if="setting.type==\'decimal\' || setting.type==\'integer\'" layout="row" layout-wrap>'+
                       '<div flex="70">'+
-                        '<div><span class="title">{{setting.name}}</span>'+
+                        '<div><span class="title truncate">{{setting.name}}</span>'+
                         '<span class="title-control" ng-hide="configure" ng-click="openConfigure()"><md-icon>build</md-icon></span></div>'+
                         '<div ng-hide="configure">'+
-                           '<md-slider style="padding-left:6px" ng-change="change()" min="{{setting.min}}" max="{{setting.max}}" ng-model="setting.value" step="{{setting.step}}"></md-slider>'+
+                           '<md-slider aria-label="{{setting.name}}" style="padding-left:6px" ng-change="change()" min="{{setting.min}}" max="{{setting.max}}" ng-model="setting.value" step="{{setting.step}}"></md-slider>'+
                         '</div>'+
                       '</div>'+
                       '<span class="value" ng-hide="configure" flex="30">{{setting.value}}</span>'+
                       '<div class="setting-configuration-panel" ng-show="configure" flex="100">'+
-                          '<md-content>'+
+                          '<div>'+
                           '<span>range:</span>'+
                           '<div class="inline-numeric"><md-input-container md-no-float>'+
                               '<input placeholder="min" type="text" id="{{setting.name}}min" ng-change="calcStep()" ng-model="setting.min" numeric>'+
@@ -48,7 +48,7 @@
                               '<input placeholder="max" type="text" id="{{setting.name}}max" ng-change="calcStep()" ng-model="setting.max" numeric>'+
                           '</md-input-container></div>'+
                           '<md-icon class="md-primary config-control" ng-click="closeConfigure()">close</md-icon>'+
-                          '</md-content>'+
+                          '</div>'+
                     '</div>'+  
                   '</div>'+
 
@@ -66,7 +66,7 @@
     // $log.info($scope.setting);
     $scope.step = 1;
     function calcStep(){
-      $log.info('calcStep');
+      // $log.info('calcStep');
       if($scope.setting.type == 'integer' ){
         $scope.setting.step = 1;
       }
@@ -74,7 +74,7 @@
       if($scope.max < $scope.value) $scope.max = $scope.value+"";
       if($scope.setting.type == 'decimal'){
         $scope.setting.step = (($scope.setting.max - $scope.setting.min)/100).toFixed(2);
-        $log.info('step = '+$scope.setting.step);
+        // $log.info('step = '+$scope.setting.step);
       }
     }
     calcStep();
