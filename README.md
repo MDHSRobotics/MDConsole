@@ -15,3 +15,10 @@ see [Understanding MDConsole](https://github.com/MDHSRobotics/TeamWiki/wiki/Unde
 Typically, this project would be forked for each season.
 
 See the [How to Git](https://github.com/MDHSRobotics/TeamWiki/wiki/How%20to%20Git) tutorial for more information on how to fork this project.  
+
+###Backlog
+* Add the ability to sort the order of subsystems on the UI
+* Add the ability to sort the order of settings in the subsystem card
+* Add the ability to sort the order of readings in the subsystem card
+* Improve the rumble feedback - tie to visual and potentially audible cue (e.g. mp3 file)
+* Add the ability to auto detect a video streaming source and to display video streams
