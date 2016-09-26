@@ -9,4 +9,9 @@ MDConsole provides a better alternative.  It uses websockets to communicate to t
 * __customizeable UI__ = The UI can be customized beyond what is achievable in the Smart Dashboard.  The full spectrum of HTML5 capabilites can be leveraged, enabling advanced visualization and custom experiences tailored to enahnce operator control
 * __Extensible Operator Interface__ - The console cna be used as an extension of the operator interface, enabling it to send commands to the robot and control its systems
 
+see [Understanding MDConsole](https://github.com/MDHSRobotics/TeamWiki/wiki/Understanding%20MDConsole) for more information
 
+###Typical Use
+Typically, this project would be forked for each season.
+
+See the [How to Git](https://github.com/MDHSRobotics/TeamWiki/wiki/How%20to%20Git) tutorial for more information on how to fork this project.  
