@@ -26,7 +26,7 @@
                 // '<form>'+
                   '<div><md-input-container ng-if="setting.type==\'string\'">'+
                     '<label for="{{setting.name}}Input">{{setting.name}}</label>'+
-                    '<input type="text" id="{{setting.name}}Input"  ng-model="setting.value" md-autofocus>'+
+                    '<input type="text" id="{{setting.name}}Input"  ng-model="setting.value" ng-change="change()" md-autofocus>'+
                   '</md-input-container></div>'+
                   '<div ng-if="setting.type==\'decimal\' || setting.type==\'integer\'" layout="row" layout-wrap>'+
                       '<div flex="70">'+

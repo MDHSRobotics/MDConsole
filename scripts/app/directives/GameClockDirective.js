@@ -26,13 +26,13 @@
                 '<md-button class="clock-control"  ng-hide="selectedIndex==1" ng-mouseenter="addHover = true;" ng-mouseleave="addHover = false;" ng-click="increaseClock()">'+
                   '<md-icon ng-hide="addHover">add</md-icon>'+
                   '<md-icon ng-show="addHover">add_circle_outline</md-icon>'+
-              '</md-button>'+
+                '</md-button>'+
               '</div>'+
               '<md-tabs md-stretch-tabs="always" md-align-tabs="bottom" md-border-bottom md-center-tabs md-no-pagination  md-selected="selectedIndex" md-no-select-click>'+
                 '<md-tab ng-click="tabSelected()" md-on-select="selectedIndex=0"><md-tab-label><i class="material-icons">schedule</i></md-tab-label></md-tab>'+
                 '<md-tab ng-click="tabSelected()" md-on-select="selectedIndex=1"><md-tab-label><i class="material-icons">timelapse</i></md-tab-label></md-tab>'+
                 '<md-tab ng-click="tabSelected()" md-on-select="selectedIndex=2"><md-tab-label><i class="material-icons">build</i></md-tab-label></md-tab>'+
-              '</md-tabs></div>'+
+              '</md-tabs>'+
             '</div>'
   	}
   };

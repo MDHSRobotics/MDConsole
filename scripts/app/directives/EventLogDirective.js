@@ -24,14 +24,18 @@
             '</md-toolbar>'+
             '<md-divider></md-divider>'+
           '<md-content scroll-bottom="events">'+
-              '<div ng-repeat="event in events" ng-switch="event.eventType">'+
-                '<log-message ng-switch-when="RobotLogNotification" data-event="event" ng-show="showEvent(event)"></log-message>'+
-                '<div ng-switch-default>default: {{event.id}}</div>'+
+              '<div ng-repeat="event in events  track by $index">'+
+                 '<div ng-if="event.eventType==\'RobotConfigurationNotification\'"><log-configuration ng-show="showEvent(event)" data-event="event"></log-configuration></div>'+
+                 '<div ng-if="event.eventType==\'Heartbeat\'"><log-heartbeat ng-show="showEvent(event)" data-event="event"></log-heartbeat></div>'+
+                 '<div ng-if="event.eventType==\'ConsoleRumbleNotification\'"><log-rumble ng-show="showEvent(event)" data-event="event"></log-rumble></div>'+
+                 '<div ng-if="event.eventType==\'RobotLogNotification\'"><log-message data-event="event" ng-show="showEvent(event)"></log-message></div>'+
+                // '<div>{{event}}</div>'+
               '</div>'+
           '</md-content>'+
         '</div>'
     }
   };
+
 
   var controller = function($scope,  $log, RobotService){
     // $log.info('eventLogController');
@@ -39,7 +43,7 @@
     $scope.autoscroll = true;
 
     $scope.clear = function(){
-      service.clearEvents();
+      RobotService.clearEvents();
     };
 
     $scope.showErrors = true;
@@ -60,14 +64,18 @@
     $scope.showEvent = function(event){
       var show = false;
       if(event.eventType == 'RobotLogNotification'){
+        // $log.info('show for RobotLogNotification');
         switch(event.level){
-          case 'error':
+          case 'ERROR':
             return $scope.showErrors;
-          case 'info':
+          case 'INFO':
             return $scope.showInfo;
-          case 'warning':
+          case 'WARNING':
             return $scope.showWarnings;
         }
+      }
+      else if(event.eventType == 'Heartbeat' || event.eventType == 'ConsoleRumbleNotification' || event.eventType == 'RobotConfigurationNotification'){
+        return $scope.showInfo;
       }
       return show; 
     };

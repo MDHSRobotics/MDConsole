@@ -9,9 +9,11 @@
   		replace: true,
       // templateUrl: 'scripts/app/views/CommandsList.html'
       template: 
-      '<div>'+
+      '<div layout="column">'+
+          '<div>Rumbles:{{robotConfig.consoleOI.rumbles}}</div>'+
+          '<div>Commands:</div>'+
         // '<div>Console OI Configuration:</div><div>{{robotConfig.consoleOI}}</div>'+
-        '<console-rumble ng-repeat="rumble in robotConfig.consoleOI.rumbles" data-rumble="rumble">{{rumble}}</console-rumble>'+
+          // '<div ng-repeat="rumble in robotConfig.consoleOI.rumbles">{{rumble}}</div>'+
         
           '<console-button ng-repeat="button in robotConfig.consoleOI.buttons" data-button="button"></console-button>'+
        

@@ -28,14 +28,7 @@
             <game-clock></game-clock>
             <robot-state data-state="state"></robot-state>
             <div layout="column">
-                <div>Commands:</div>
                 <console-oi></console-oi>
-                <md-divider></md-divider>
-                <div>Simulation:</div>
-                <md-button class="md-raised md-primary" ng-click="toggleFMS()">Toggle FMS</md-button>
-                <md-button class="md-raised md-primary" ng-click="toggleConnected()">Toggle Connected</md-button>
-                <md-button class="md-raised md-primary" ng-click="toggleDBConnected()">Toggle DB Connected</md-button>
-
             </div>
         </div>
         <div  flex layout="column" style="height:450px;">
@@ -44,18 +37,23 @@
         </div>
         <div flex="none" class="indicators-container" layout="column">
           <div class="indicator" ng-class="{'connected':isConnected}"><md-icon>android</md-icon></div>
-          <div class="indicator" ng-class="{'connected':isDBConnected}" ng-click="toggleRecording()"><md-icon>storage</md-icon><md-icon class="annotation" ng-show="isRecording">fiber_manual_record</md-icon></div>
           <md-divider></md-divider>
           <md-button ng-click="toggleRight('settings')"><div class="indicator"><md-icon>settings</md-icon></div></md-button>
           <md-button ng-click="toggleRight('diagnostics')"><div class="indicator"><md-icon>assessment</md-icon></div></md-button>
           <md-button ng-click="toggleRight('event-log')"><div class="indicator"><md-icon>message</md-icon><badge data-count="getEventsCount()"></badge></div></md-button>
+          <md-divider></md-divider>
+
+          <div class="indicator" ng-class="{'connected':isDBConnected}" ng-click="toggleRecording()"><md-icon>storage</md-icon><md-icon class="annotation" ng-show="isRecording">fiber_manual_record</md-icon></div>
+          <md-button ng-click="toggleRight('db-admin')"><div class="indicator"><md-icon>youtube_searched_for</md-icon></div></md-button>
+
           <div class="indicator simulation-switch" ng-class="{'connected':isSimulation()}" ng-click="toggleSimulation()">SIM</div>
         </div>
     </div>
-    <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" ng-class="{'sidenav-log':mode=='event-log'}">
+    <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" ng-class="{'sidenav-log':mode=='event-log','sidenav-db-admin':mode=='db-admin'}">
       <core-settings  ng-show="mode=='settings'"></core-settings>  
       <diagnostics  ng-show="mode=='diagnostics'"></diagnostics>  
       <event-log  ng-show="mode=='event-log'"></event-log>  
+      <db-admin  ng-show="mode=='db-admin'"></db-admin>
     </md-sidenav>    
 
  <!--         <md-switch ng-disabled="!(db.isConnected)" style="width:140px;padding-left:6px;" ng-model="db.isRecording" aria-label="Record Switch" ng-change="toggleRecording(db.isRecording)">
@@ -89,5 +87,10 @@
     <script src="scripts/app/directives/ScrollBottomDirective.js"></script>
     <script src="scripts/app/directives/LogMessageDirective.js"></script>
     <script src="scripts/app/directives/RobotStateDirective.js"></script>
+    <script src="scripts/app/directives/LogConfigurationDirective.js"></script>
+    <script src="scripts/app/directives/LogHeartbeatDirective.js"></script>
+    <script src="scripts/app/directives/LogRumbleDirective.js"></script>
+    <script src="scripts/app/directives/DBAdminDirective.js"></script>
+    <script src="scripts/app/directives/SessionCardDirective.js"></script>
  </body>
 </html>

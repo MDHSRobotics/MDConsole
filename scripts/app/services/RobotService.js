@@ -67,12 +67,36 @@
         var isSimulation = function(){
             return SimulationService.isSimulation;
         };
-        var states = ['disabled','autonomous','teleop','disabled', 'test', 'disabled'];
 
         var robotConfig = {
             subsystems:[],
             consoleOI:{}
         };
+        var time = -1;
+        var play=function(){
+            serviceObj.isPlayback = true;
+            if(ws){
+                // $log.info('ws exists');
+                ws.close();
+            }
+            time = -1;
+            playNext();
+        };
+        function playNext(){
+            if(DatabaseService.session.events.length>0){
+                var event = DatabaseService.session.events.shift();
+                // $log.info(event);
+                var delay = 0;
+                if(time > 0){
+                    delay = (event.fpgaTime - time)*1000;
+                }
+                time = event.fpgaTime;
+                $timeout(function(){
+                    process(JSON.stringify(event));
+                    playNext();
+                },delay);
+            }
+        }
         var serviceObj = {
                 events: events,
                 clearEvents: clearEvents,
@@ -80,22 +104,37 @@
                 post: post,
                 isFMSAttached: false,
                 isConnected:false,
+                isPlayback:false,
                 isSimulation:isSimulation,
                 toggleFMS:toggleFMS,
                 toggleConnected:toggleConnected,
                 toggleSimulation:toggleSimulation,
-                state: states[0],
+                state: 'Disabled',
                 robotConfig: robotConfig,
                 clock:{matchTime:0, fpgaTime:0, correction:0},
                 clockCorrectionIncrease:clockCorrectionIncrease,         
-                clockCorrectionDecrease:clockCorrectionDecrease
+                clockCorrectionDecrease:clockCorrectionDecrease,
+                play:play,
+                reconnect:reconnect
             };
+
         var process=function(event){
-            // $log.info(event);
             var eventObj=JSON.parse(event);
+            // if (!(eventObj.eventType =="Heartbeat")){
+            //     $log.info(event);
+            // }
+            if(eventObj.hasOwnProperty('fpgaTime')){
+                // $log.info('has fpgaTime');
+                eventObj.fpgaTime = Math.round(eventObj.fpgaTime * 100) / 100;
+                // $log.info('time = '+event.fpgaTime);
+            }
+
             // $log.info(eventObj);
-            if(eventObj.display) events.push(eventObj);
-            if(eventObj.isRecord) DatabaseService.record(eventObj);      
+            if(eventObj.display) {
+                $timeout(function(){events.push(eventObj);});
+                if(events.length>eventcapacity) events.shift();
+            }
+            if(eventObj.record) DatabaseService.record(eventObj);      
             if (eventObj.eventType =="RobotConfigurationNotification"){
                 // $log.info('processing RobotConfigurationNotification:');
                 // $log.info(eventObj);
@@ -104,12 +143,11 @@
             if (eventObj.eventType =="Heartbeat"){
                 // $log.info('processing Heartbeat:');
                 // $log.info(eventObj);
+                // $timeout(function(){events.push(eventObj);});
                 update(eventObj);
             }     
-            if(eventObj.eventType =="RobotLogNotification"){
-                events.push(eventObj);
-                // $log.info("RobotLogNotification found");
-                if(events.length>eventcapacity) events.shift();
+            if(eventObj.eventType =="ConsoleRumbleNotification"){
+                consoleRumble(eventObj);
             }
         };
     
@@ -130,8 +168,10 @@
         var onclose = function(){
             ws = undefined;
             serviceObj.isConnected = false;
-            $log.info('Robot connection closed.  Attempting to reconnect ...');
-            connect();
+            if(!serviceObj.isPlayback) {
+                $log.info('Robot connection closed.  Attempting to reconnect ...');
+                connect();
+            }
         };
         var onerror = function(err){
             // $log.info('WS CONNECTION ERROR: ')
@@ -142,7 +182,7 @@
         var connect = function(){
             connector = $timeout(function(){
                 if (!serviceObj.isSimulation() && ws === undefined){
-                    $log.info('simulation off');
+                    // $log.info('simulation off');
                     $log.info('initializing web socket client...');
                     // ws = new WebSocket('ws://127.0.0.1:5808');
                     ws = new WebSocket(robotAddress);
@@ -163,9 +203,9 @@
         function updateConfiguration(robotConfig){
             // $log.info('robot config:');
             // $log.info(robotConfig);
-            serviceObj.clock.fpgaTime=0.0;
+            // serviceObj.clock.fpgaTime=0.0;
             if(robotConfig.hasOwnProperty('fpgaTime')){
-                // $log.info('config fgpaTime');
+                // $log.info('config fpgaTime');
                 serviceObj.clock.fpgaTime = robotConfig.fpgaTime;
             }
             serviceObj.robotConfig.subsystems={};
@@ -185,7 +225,7 @@
             // $log.info(heartbeat);
             if(heartbeat.hasOwnProperty('fpgaTime')){
                 $timeout(function(){
-                    serviceObj.clock.fpgaTime = Math.round(heartbeat.fpgaTime * 100) / 100;
+                    serviceObj.clock.fpgaTime = heartbeat.fpgaTime;
                 });
             }
 
@@ -200,7 +240,11 @@
                         serviceObj.isFMSAttached = heartbeat.sensors['DriverStation.isFMSAttached'].value;
                     });
                 }
-
+                if(heartbeat.hasOwnProperty('sensors') && heartbeat.sensors.hasOwnProperty('RobotState')){
+                    $timeout(function(){
+                        serviceObj.state = heartbeat.sensors['RobotState'].value;
+                    });
+                }
                 // $log.info(heartbeat.sensors.length+' sensors data to update');
                 if(serviceObj.robotConfig && serviceObj.robotConfig.subsystems){
                     Object.getOwnPropertyNames(heartbeat.sensors).forEach(function(sensorReadingName){
@@ -231,7 +275,19 @@
             
         }
 
-  
+        function consoleRumble(event){
+            if(robotConfig && robotConfig.consoleOI && robotConfig.consoleOI.rumbles){
+                if(event.hand == 0){
+                    robotConfig.consoleOI.rumbles.left = event.value;
+                }                
+                else{
+                    robotConfig.consoleOI.rumbles.right = event.value;
+                }                
+            } 
+        }
+        function reconnect(){
+            if(ws) ws.close();
+        }
 
     }
     angular.module('MDConsole')

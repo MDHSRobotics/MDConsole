@@ -22,7 +22,10 @@
 
 		$scope.toggleRecording = function(){
 			if(DatabaseService.db.isRecording) DatabaseService.stopRecording();
-			else DatabaseService.startRecording();
+			else {				
+				DatabaseService.startRecording();
+				RobotService.reconnect();
+			}
 		}
 	    
 	    $scope.toggleFMS = function(){
@@ -40,8 +43,12 @@
 	    $scope.$watch(function(){return RobotService.state;},function(){$scope.state = RobotService.state;});      
 	    $scope.$watch(function(){return RobotService.isConnected;},function(){$scope.isConnected = RobotService.isConnected;});      
 	    $scope.$watch(function(){return DatabaseService.db.isConnected;},function(){$scope.isDBConnected = DatabaseService.db.isConnected;});      
-	    $scope.$watch(function(){return DatabaseService.db.isRecording;},function(){$log.info('DatabaseService.db.isRecorging changed');$scope.isRecording = DatabaseService.db.isRecording;});      
-
+	    $scope.$watch(function(){return DatabaseService.db.isRecording;},function(){$scope.isRecording = DatabaseService.db.isRecording;});      
+		$scope.$watch(function(){return RobotService.isPlayback;},function(){
+			if(RobotService.isPlayback){
+				$mdSidenav('right').close()
+			}
+		});	
 		function buildToggler(navID) {
 	      return function(mode) {
 	        // Component lookup should always be available since we are not using `ng-if`
@@ -50,6 +57,7 @@
 	          .toggle()
 	          .then(function () {
 		        // $log.debug("mode:" + mode);
+		        DatabaseService.getRecordings();
           	});
 	      }
 	    }    
@@ -62,6 +70,7 @@
 		          //$log.debug('closing sidenav');
 		        });
 		};	
+
 	};
 
 	angular.module('MDConsole',['ngMaterial'])

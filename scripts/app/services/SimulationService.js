@@ -33,8 +33,8 @@
             var event = 
     '{"messageId": '+eventId+','+
     '"eventType": "Heartbeat",'+
-    '"isDisplay": true,'+
-    '"isRecord": true,'+
+    '"display": true,'+
+    '"record": true,'+
     '"fpgaTime": '+eventTime+','+
     '"sensors": [{"name": "DriverStation.isFMSAttached","type": "digital","value": false}, '+
     '{"name": "DriverStation.MatchTime","type": "analog","value": -1.0}, '+
@@ -74,7 +74,7 @@
             return event;
         }  
         function createLogEvent(){
-            var event = '{"id":'+eventId+', "time":'+eventTime+', "source":"source", "level":"'+(levels[eventId%3])+'", "eventType":"RobotLogNotification", "message":"'+
+            var event = '{"messageId":'+eventId+', "display": true, "record": true, "fpgaTime":'+eventTime+', "source":"source", "level":"'+(levels[eventId%3])+'", "eventType":"RobotLogNotification", "message":"'+
                         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx '+
                         'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx '+
                         '"}';
@@ -87,8 +87,8 @@
 '{'+
     '"messageId": 980665,'+
     '"eventType": "RobotConfigurationNotification",'+
-    '"isDisplay": true,'+
-    '"isRecord": true,'+
+    '"display": true,'+
+    '"record": true,'+
     '"fpgaTime": 2.3,'+
     '"subsystems": {'+
         '"core": {'+
@@ -347,7 +347,7 @@
     }
     angular.module('MDConsole')
          .service('SimulationService', ['$q','$log', '$timeout', '$interval', service]);
-    var levels = ['error', 'warning', 'info'];
+    var levels = ['ERROR', 'WARNING', 'INFO'];
     var eventId = 0001;
     var eventTime = 8.32;
 

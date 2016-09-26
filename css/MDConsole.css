@@ -25,6 +25,8 @@
 
 .md-sidenav-right md-content{
 	padding-left: 6px;
+	padding-right: 6px;
+	height:100%;
 }
 
 /*----------------------------------------*/
@@ -273,7 +275,7 @@ left: 20px;
 }
 
 md-divider.md-default-theme, md-divider {
-    border-top-color: rgba(0,0,0,0.3);
+    border-top-color: rgba(0,0,0,0.4);
 }
 
 .team-name{
@@ -281,3 +283,160 @@ md-divider.md-default-theme, md-divider {
 	text-align: center;
 }
 
+.md-sidenav-right .db-admin{
+	height: 100%;
+}
+
+.md-sidenav-right .db-admin md-input-container
+{
+	margin:15px 6px 0px 0px;
+}
+
+.md-sidenav-right .db-admin md-content{
+	height: 260px;
+} 
+
+.indicators-container md-divider
+{
+	margin-top: 5px;
+}
+.session-card{
+  max-width: 400px;
+  width: 400px;
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+  background-color: rgb(235, 235, 235);
+}
+
+.session-card .id-panel{
+	max-width: 160px;
+	width: 160px;
+}
+.session-card .control-panel{
+	max-width: 28px;
+	width: 28px;
+	text-align: center;
+    vertical-align: middle;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+}
+.session-card .control-panel .md-button{
+   padding: 0px;
+   margin: 0px;
+   min-width: 0px;
+   min-height: 0px;
+   width:28px;
+}
+
+.session-card .control-panel .md-button:hover md-icon{
+   color:rgba(81, 203, 238, 1);
+}
+
+.session-card .id-panel .recording-name{
+    font-size: 22px;
+}
+
+.session-card .id-panel .recording-time-label{
+    font-size: 12px;
+}
+
+.session-card .id-panel .recording-time{
+	font-size: 15px;
+}
+
+.session-card .stat-panel{
+	font-size: 12px;
+}
+
+.session-card:hover {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid rgba(81, 203, 238, 1);
+  background-color: rgb(255,255,255);
+}
+
+md-icon.fa{
+	text-align: center;
+    vertical-align: middle;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+}
+
+
+.session-card{
+  max-width: 400px;
+  width: 400px;
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+  background-color: rgb(235, 235, 235);
+}
+
+.session-card .id-panel{
+	max-width: 160px;
+	width: 160px;
+}
+.session-card .control-panel{
+	max-width: 28px;
+	width: 28px;
+	text-align: center;
+    vertical-align: middle;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+}
+.session-card .control-panel .md-button{
+   padding: 0px;
+   margin: 0px;
+   min-width: 0px;
+   min-height: 0px;
+   width:28px;
+}
+
+.session-card .control-panel .md-button:hover md-icon{
+   color:rgba(81, 203, 238, 1);
+}
+
+.session-card .id-panel .recording-name{
+    font-size: 22px;
+}
+
+.session-card .id-panel .recording-time-label{
+    font-size: 12px;
+}
+
+.session-card .id-panel .recording-time{
+	font-size: 15px;
+}
+
+.session-card .stat-panel{
+	font-size: 12px;
+}
+
+.session-card:hover {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid rgba(81, 203, 238, 1);
+  background-color: rgb(255,255,255);
+}
+
+
+.sidenav-db-admin{
+	max-width: 430px;
+	width: 430px;
+}
