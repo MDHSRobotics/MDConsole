@@ -22,3 +22,7 @@ See the [How to Git](https://github.com/MDHSRobotics/TeamWiki/wiki/How%20to%20Gi
 * Add the ability to sort the order of readings in the subsystem card
 * Improve the rumble feedback - tie to visual and potentially audible cue (e.g. mp3 file)
 * Add the ability to auto detect a video streaming source and to display video streams
+* Add spritesheets to improve graphics and icons as well as performance.  Check out svg4everybody and SVGO along with svg sprite of Material Design Icon
+* Develop a scouting app
+* Add video Streaming
+* Add real-time graphing
