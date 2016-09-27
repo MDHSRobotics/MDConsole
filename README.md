@@ -25,4 +25,4 @@ See the [How to Git](https://github.com/MDHSRobotics/TeamWiki/wiki/How%20to%20Gi
 * Add spritesheets to improve graphics and icons as well as performance.  Check out svg4everybody and SVGO along with svg sprite of Material Design Icon
 * Develop a scouting app
 * Add video Streaming
-* Add real-time graphing
+* Add real-time graphing, sparklines
