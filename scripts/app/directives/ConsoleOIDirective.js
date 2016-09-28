@@ -10,7 +10,7 @@
       // templateUrl: 'scripts/app/views/CommandsList.html'
       template: 
       '<div layout="column">'+
-          '<div>Rumbles:{{robotConfig.consoleOI.rumbles}}</div>'+
+          // '<div>Rumbles:{{robotConfig.consoleOI.rumbles}}</div>'+
           '<div>Commands:</div>'+
         // '<div>Console OI Configuration:</div><div>{{robotConfig.consoleOI}}</div>'+
           // '<div ng-repeat="rumble in robotConfig.consoleOI.rumbles">{{rumble}}</div>'+

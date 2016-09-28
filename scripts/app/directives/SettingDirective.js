@@ -29,9 +29,11 @@
                     '<input type="text" id="{{setting.name}}Input"  ng-model="setting.value" ng-change="change()" md-autofocus>'+
                   '</md-input-container></div>'+
                   '<div ng-if="setting.type==\'decimal\' || setting.type==\'integer\'" layout="row" layout-wrap>'+
-                      '<div flex="70">'+
-                        '<div><span class="title truncate">{{setting.name}}</span>'+
-                        '<span class="title-control" ng-hide="configure" ng-click="openConfigure()"><md-icon>build</md-icon></span></div>'+
+                      '<div flex="70" layout="column">'+
+                        '<div layout="row">'+
+                          '<div flex class="title truncate">{{setting.name}}</div>'+
+                          '<div flex="none" class="title-control" ng-hide="configure" ng-click="openConfigure()"><md-icon>build</md-icon></div>'+
+                        '</div>'+
                         '<div ng-hide="configure">'+
                            '<md-slider aria-label="{{setting.name}}" style="padding-left:6px" ng-change="change()" min="{{setting.min}}" max="{{setting.max}}" ng-model="setting.value" step="{{setting.step}}"></md-slider>'+
                         '</div>'+
