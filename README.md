@@ -12,9 +12,10 @@ MDConsole provides a better alternative.  It uses websockets to communicate to t
 see [Understanding MDConsole](https://github.com/MDHSRobotics/TeamWiki/wiki/Understanding%20MDConsole) for more information
 
 ###Typical Use
-Typically, this project would be forked for each season.
+Clone this project if you are intending to add features to the base console. See the [How to Git](https://github.com/MDHSRobotics/TeamWiki/wiki/How%20to%20Git) tutorial for more information on how to clone this project.  
 
-See the [How to Git](https://github.com/MDHSRobotics/TeamWiki/wiki/How%20to%20Git) tutorial for more information on how to fork this project.  
+Duplicate this repository if you are intending to develop season specific custom console.  See the [Duplicating a Repository](https://help.github.com/articles/duplicating-a-repository/) guide from GitHub.
+
 
 ###Backlog
 * Add the ability to sort the order of subsystems on the UI
