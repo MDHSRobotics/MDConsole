@@ -180,7 +180,8 @@ left: 20px;
 }
 
 .setting .title-control {
-	padding-left:14px; 
+	padding-left:4px; 
+	padding-right:10px;
 }
 
 .setting .title-control .material-icons{
