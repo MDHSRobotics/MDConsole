@@ -156,7 +156,7 @@
         var onopen = function(){
             $log.info('WS CONNECTED!');
             $interval.cancel(connector);            
-            this.send('{"command":"connect"}');
+            this.send('{"type":"remoteIdentification", "id":"MDConsole"}');
             serviceObj.isConnected = true;
         };
         var onmessage = function(evt){
