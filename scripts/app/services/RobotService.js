@@ -145,7 +145,8 @@
                 // $log.info(eventObj);
                 // $timeout(function(){events.push(eventObj);});
                 update(eventObj);
-            }     
+            }  
+   
             if(eventObj.eventType =="ConsoleRumbleNotification"){
                 consoleRumble(eventObj);
             }
@@ -156,7 +157,7 @@
         var onopen = function(){
             $log.info('WS CONNECTED!');
             $interval.cancel(connector);            
-            this.send('{"type":"remoteIdentification", "id":"MDConsole"}');
+            this.send('{"type":"remoteIdentification", "id":"console"}');
             serviceObj.isConnected = true;
         };
         var onmessage = function(evt){
