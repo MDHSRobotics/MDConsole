@@ -11,7 +11,7 @@
             '<div layout="row" ng-class="{\'selected\':hovering}" class="log-message" ng-mouseenter="hovering = true;" ng-mouseleave="hovering = false;" ng-click="clicked(\$event)">'+
               '<div style="width:20px;" flex="none"><md-icon class="md-warn" ng-show="event.level==\'ERROR\'">error</md-icon><md-icon  class="md-accent" ng-show="event.level==\'WARNING\'">warning</md-icon><md-icon ng-show="event.level==\'INFO\'">info_outline</md-icon></div>'+
               '<div flex="initial">{{event.fpgaTime}}:</div>'+
-              '<div flex="initial">{{event.source}}:</div>'+
+              //'<div flex="initial">{{event.source}}:</div>'+
               '<div flex="auto" class="truncate" title="{{event.message}}">{{event.message}}</div>'+
               '<div style="width:30px;position:relative" flex="none" ng-show="hovering" ng-click="copy(\$event)" title="Copy to Clipboard">'+
                  '<md-icon>content_copy</md-icon>'+

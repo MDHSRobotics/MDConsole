@@ -128,7 +128,15 @@
                 eventObj.fpgaTime = Math.round(eventObj.fpgaTime * 100) / 100;
                 // $log.info('time = '+event.fpgaTime);
             }
+            if (eventObj.eventType =="RobotLogNotification"){
+                
+                $log.info('processing RobotLogNotification:');
+                $log.info(eventObj);
+                if(eventObj.hasOwnProperty('level') && eventObj['level']=='INFO'){
+                    eventObj.display = true;
+                }
 
+            }  
             // $log.info(eventObj);
             if(eventObj.display) {
                 $timeout(function(){events.push(eventObj);});
@@ -146,6 +154,7 @@
                 // $timeout(function(){events.push(eventObj);});
                 update(eventObj);
             }  
+
    
             if(eventObj.eventType =="ConsoleRumbleNotification"){
                 consoleRumble(eventObj);
